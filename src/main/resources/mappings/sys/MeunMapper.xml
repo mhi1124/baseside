@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxfeii.baseside.modules.sys.mapper.MenuMapper">
+	
+	<resultMap type="com.xxfeii.baseside.modules.sys.entity.MenuEntity" id="menu">
+		<id property="id"  column="id"/>
+		<result property="menuName" column="menuName"/>
+		<result property="menuUrl" column="menuUrl"/>
+		<result property="menuStatus" column="menuStatus"/>
+		<result property="pid" column="pid"/>
+		<result property="menuRemark" column="menuRemark"/>
+		<result property="menuType" column="menuType"/>
+	</resultMap>
+	<sql id="column">id,menuName,menuUrl,menuStatus,pid,menuRemark,menuType</sql>
+	<sql id="noid">menuName,menuUrl,menuStatus,pid,menuRemark,menuType</sql>
+	<insert id="insertEntity" parameterType="com.xxfeii.baseside.modules.sys.entity.MenuEntity">
+		insert into sys_menu ( <include refid="noid"/> )
+		values (#{menuName},#{menuUrl},#{menuStatus},#{pid},#{menuRemark},#{menuType})
+	</insert>
+	
+</mapper>
