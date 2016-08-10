@@ -419,9 +419,7 @@
 				<version>2.2</version>
 				<configuration>
 					<port>8090</port>
-					<path>/</path>
 					<uriEncoding>UTF-8</uriEncoding>
-					<finalName></finalName>
 					<server>tomcat7</server>
 				</configuration>
 			</plugin>

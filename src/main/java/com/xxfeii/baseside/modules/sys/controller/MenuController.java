@@ -21,13 +21,13 @@ public class MenuController extends BaseController{
 	
 	@RequestMapping("toAddMenu")
 	public String toAddMenu(HttpServletRequest req){
-		return "/modules/sys/addMenu";
+		return "modules/sys/addMenu";
 	}
 	
 	@RequestMapping("addMenu")
 	public String addMenu(MenuEntity menu,HttpServletRequest req){
 		String menuName = req.getParameter("menuName");
 		menuService.insertEntity(menu);
-		return "/modules/sys/listMenu";
+		return "modules/sys/listMenu";
 	}
 }

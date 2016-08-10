@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<a href="${ctx}/login/index">登录</a>
 	<a href="${ctx }/menu/toAddMenu.do">添加菜单</a>
 </body>
 </html>
