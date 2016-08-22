@@ -2,8 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxfeii.baseside.modules.sys.mapper.MenuMapper">
 	
-	<resultMap type="com.xxfeii.baseside.modules.sys.entity.MenuEntity" id="menu">
-		<id property="id"  column="id"/>
+	<sql id="column">id,menuName,menuUrl,menuStatus,pid,menuRemark,menuType</sql>
+	
+	<resultMap id="menuMap" type="com.xxfeii.baseside.modules.sys.entity.Menu">
+		<id property="id" column="id"/>
 		<result property="menuName" column="menuName"/>
 		<result property="menuUrl" column="menuUrl"/>
 		<result property="menuStatus" column="menuStatus"/>
@@ -11,11 +13,30 @@
 		<result property="menuRemark" column="menuRemark"/>
 		<result property="menuType" column="menuType"/>
 	</resultMap>
-	<sql id="column">id,menuName,menuUrl,menuStatus,pid,menuRemark,menuType</sql>
-	<sql id="noid">menuName,menuUrl,menuStatus,pid,menuRemark,menuType</sql>
-	<insert id="insertEntity" parameterType="com.xxfeii.baseside.modules.sys.entity.MenuEntity">
-		insert into sys_menu ( <include refid="noid"/> )
-		values (#{menuName},#{menuUrl},#{menuStatus},#{pid},#{menuRemark},#{menuType})
+	
+	<insert id="insert" parameterType="com.xxfeii.baseside.modules.sys.entity.Menu">
+		insert into sys_menu ( <include refid="column"/> )
+		values (#{id},#{menuName},#{menuUrl},#{menuStatus},#{pid},#{menuRemark},#{menuType})
 	</insert>
 	
+	<select id="findPage" parameterType="map" resultMap="menuMap">
+		select 
+			m1.id,
+			m1.menuName,
+			m1.menuUrl,
+			m1.menuStatus,
+			m1.pid,
+			m1.menuRemark,
+			m1.menuType
+		from sys_menu m1 left join sys_menu m2 on m1.pid =m2.id 
+		where m1.menuStatus in (0,1)
+		<if test="pageNo != null and pageSize != null ">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="getCount" resultType="Integer">
+		select count(1) from sys_menu where menuStatus in (0,1)
+	</select>
+	<delete id=""></delete>
 </mapper>

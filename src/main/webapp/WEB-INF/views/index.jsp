@@ -6,20 +6,33 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>首页</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<link href="${ctx}/static/bootstrap/bootstrap.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="${ctx}/static/assets/css/font-awesome.min.css" />
-
+<%-- basic styles --%>
+<link href="${ctx}/static/plug-ins/assets/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/font-awesome.min.css" />
 <!--[if IE 7]>
-  <link rel="stylesheet" href="${ctx}/static/assets/css/font-awesome-ie7.min.css" />
+  <link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/font-awesome-ie7.min.css" />
 <![endif]-->
-<link href="${ctx}/static/assets/css/ace.min.css" rel="stylesheet" />
+<!-- ace styles -->
+<link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/ace.min.css" />
+<link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/ace-rtl.min.css" />
+<link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/ace-skins.min.css" />
 
 <!--[if lte IE 8]>
-	<link rel="stylesheet" href="${ctx}/static/assets/css/ace-ie.min.css" />
+  <link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/ace-ie.min.css" />
 <![endif]-->
-
-
+<!-- ace settings handler -->
+<script src="${ctx}/static/plug-ins/assets/js/ace-extra.min.js"></script>
+<!--[if lt IE 9]>
+<script src="${ctx}/static/plug-ins/assets/js/html5shiv.js"></script>
+<script src="${ctx}/static/plug-ins/assets/js/respond.min.js"></script>
+<![endif]-->
+<!-- font-awesome -->
+<link rel="stylesheet" href="${ctx}/static/plug-ins/fonts/fontawesome/font-awesome.min.css" />
+<!-- DLShouWen Grid -->
+<link rel="stylesheet" href="${ctx}/static/plug-ins/dlshouwen.grid.v1.2.1/dlshouwen.grid.css" />
+<!-- datePicker -->
+<link rel="stylesheet" href="${ctx}/static/plug-ins/datePicker/skin/WdatePicker.css" />
+<link rel="stylesheet" href="${ctx}/static/plug-ins/datePicker/skin/default/datepicker.css" />
 </head>
 <body>
 <div class="navbar navbar-default" id="navbar">
@@ -86,45 +99,11 @@
 						<span class="menu-text"> 控制台 </span>
 					</a>
 				</li>
-				<li>
-					<a href="#" class="dropdown-toggle">
+				<li level="level1" class="">
+					<a href="javascript:void(0)" nav-menu="菜单,/menu/toMenuList.html" >
 						<i class="icon-desktop"></i>
-						<span class="menu-text"> UI 组件 </span>
-						<b class="arrow icon-angle-down"></b>
+						<span class="menu-text"> 菜单 </span>
 					</a>
-	
-					<ul class="submenu">
-						<li>
-							<a href="#">
-								<i class="icon-double-angle-right"></i>
-								组件
-							</a>
-						</li>
-						<li>
-							<a href="#" class="dropdown-toggle">
-								<i class="icon-double-angle-right"></i>
-								三级菜单
-								<b class="arrow icon-angle-down"></b>
-							</a>
-	
-							<ul class="submenu">
-								<li>
-									<a href="#">
-										<i class="icon-leaf"></i>
-										第一级
-									</a>
-								</li>
-	
-								<li>
-									<a href="#">
-										<i class="icon-pencil"></i>
-										第四级
-										<b class="arrow icon-angle-down"></b>
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
 				</li>
 			</ul><!-- /.nav-list -->
 	
@@ -151,11 +130,57 @@
 					<li class="active">控制台</li>
 				</ul><!-- .breadcrumb -->
 			</div>
-	
 			<div class="page-content">
 	
 			</div><!-- /.page-content -->
 		</div><!-- /.main-content -->
+		<div class="ace-settings-container" id="ace-settings-container">
+			<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+				<i class="icon-cog bigger-150"></i>
+			</div>
+
+			<div class="ace-settings-box" id="ace-settings-box">
+				<div>
+					<div class="pull-left">
+						<select id="skin-colorpicker" class="hide">
+							<option data-skin="default" value="#438EB9">#438EB9</option>
+							<option data-skin="skin-1" value="#222A2D">#222A2D</option>
+							<option data-skin="skin-2" value="#C6487E">#C6487E</option>
+							<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+						</select>
+					</div>
+					<span>&nbsp; 选择皮肤</span>
+				</div>
+
+				<div>
+					<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
+					<label class="lbl" for="ace-settings-navbar"> 固定导航条</label>
+				</div>
+
+				<div>
+					<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
+					<label class="lbl" for="ace-settings-sidebar"> 固定滑动条</label>
+				</div>
+
+				<div>
+					<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
+					<label class="lbl" for="ace-settings-breadcrumbs">固定面包屑</label>
+				</div>
+
+				<div>
+					<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
+					<label class="lbl" for="ace-settings-rtl">切换到左边</label>
+				</div>
+
+				<div>
+					<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
+					<label class="lbl" for="ace-settings-add-container">
+						切换窄屏
+						<b></b>
+					</label>
+				</div>
+			</div>
+		</div><!-- /#ace-settings-container -->
 	</div><!-- /.main-container-inner -->
 
 	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
@@ -164,23 +189,30 @@
 </div><!-- /.main-container -->
 
 <!--[if !IE]> -->
-	<script src="${ctx}/static/assets/js/jquery-2.0.3.min.js"></script>
+<script src="${ctx}/static/plug-ins/assets/js/jquery-2.0.3.min.js"></script>
 <!-- <![endif]-->
+
 <!--[if IE]>
-	<script src="${ctx}/static/assets/js/jquery-1.10.2.min.js"></script>
+<script src="${ctx}/static/plug-ins/assets/js/jquery-1.10.2.min.js"></script>
 <![endif]-->
-<!--[if !IE]> -->
-<script type="text/javascript">
-	window.jQuery || document.write("<script src='${ctx}/static/assets/js/jquery-2.0.3.min.js'>"+"<"+"script>");
-</script>
-<!-- <![endif]-->
-<!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='${ctx}/static/assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
-</script>
-<![endif]-->
-<script src="${ctx}/static/assets/js/bootstrap.min.js"></script>
-<script src="${ctx}/static/assets/js/ace.min.js"></script>
+<script src="${ctx}/static/plug-ins/assets/js/jquery.mobile.custom.min.js"></script>
+<script src="${ctx}/static/plug-ins/assets/js/bootstrap.min.js"></script>
+<script src="${ctx}/static/plug-ins/assets/js/typeahead-bs2.min.js"></script>
+<!-- ace scripts -->
+<script src="${ctx}/static/plug-ins/assets/js/ace-elements.min.js"></script>
+<script src="${ctx}/static/plug-ins/assets/js/ace.min.js"></script>
 <script src="${ctx}/static/js/index.js"></script>
+<!-- DLShouWen Grid -->
+<script src="${ctx}/static/plug-ins/dlshouwen.grid.v1.2.1/dlshouwen.grid.js"></script>
+<script src="${ctx}/static/plug-ins/dlshouwen.grid.v1.2.1/i18n/zh-cn.js"></script>
+
+<!-- datePicker -->
+<script src="${ctx}/static/plug-ins/datePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+$(function() {
+    base.index.initNavigation();
+    base.index.menu.initMenuEvent();
+});
+</script>
 </body>
 </html>

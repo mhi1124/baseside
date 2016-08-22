@@ -1,7 +1,7 @@
 package com.xxfeii.baseside.modules.sys.mapper;
 
 import com.xxfeii.baseside.common.mapper.BaseMapper;
-import com.xxfeii.baseside.modules.sys.entity.MenuEntity;
+import com.xxfeii.baseside.modules.sys.entity.Menu;
 
 /**
  * 
@@ -11,6 +11,6 @@ import com.xxfeii.baseside.modules.sys.entity.MenuEntity;
  * @date 2016年7月17日
  *
  */
-public interface MenuMapper extends BaseMapper<MenuEntity>{
+public interface MenuMapper extends BaseMapper<Menu>{
 
 }

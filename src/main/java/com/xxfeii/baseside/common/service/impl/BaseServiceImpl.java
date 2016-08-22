@@ -1,5 +1,8 @@
 package com.xxfeii.baseside.common.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xxfeii.baseside.common.mapper.BaseMapper;
@@ -17,10 +20,31 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 
 	@Autowired
 	private BaseMapper<T> baseMapper;
-	
+
 	@Override
-	public int insertEntity(T t) {
-		return baseMapper.insertEntity(t);
+	public int insert(T t) {
+		return baseMapper.insert(t);
 	}
+
+	@Override
+	public int update(T t) {
+		return baseMapper.update(t);
+	}
+
+	@Override
+	public int delete(String id) {
+		return baseMapper.delete(id);
+	}
+
+	@Override
+	public int getCount() {
+		return baseMapper.getCount();
+	}
+
+	@Override
+	public List<T> findPage(Map<String, Object> map) {
+		return baseMapper.findPage(map);
+	}
+	
 
 }
