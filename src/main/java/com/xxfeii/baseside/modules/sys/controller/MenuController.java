@@ -63,7 +63,7 @@ public class MenuController extends BaseController{
 			parameters.put("pageSize", pager.getPageSize());
 		}
 		List<Menu> menus = menuService.findPage(parameters);
-		int count = menuService.getCount();
+		int count = menuService.getCount(parameters);
 		PagerUtil pagerUtil = new PagerUtil(count, 10,1);
 		parameters.clear();
 		parameters.put("isSuccess", Boolean.TRUE);

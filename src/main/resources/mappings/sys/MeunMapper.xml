@@ -19,6 +19,21 @@
 		values (#{id},#{menuName},#{menuUrl},#{menuStatus},#{pid},#{menuRemark},#{menuType})
 	</insert>
 	
+	<insert id="insertBatch" parameterType="list">
+		insert into sys_menu (<include refid="column"/>)
+		values 
+		<foreach collection="list" item="menu" separator=",">
+			(
+				#{menu.id},
+				#{menu.menuName},
+				#{menu.menuUrl},
+				#{menu.menuStatus},
+				#{menu.pid},
+				#{menu.menuRemark},
+				#{menu.menuType}
+			)
+		</foreach>
+	</insert>
 	<select id="findPage" parameterType="map" resultMap="menuMap">
 		select 
 			m1.id,
@@ -29,14 +44,54 @@
 			m1.menuRemark,
 			m1.menuType
 		from sys_menu m1 left join sys_menu m2 on m1.pid =m2.id 
-		where m1.menuStatus in (0,1)
+		<where>
+			<if test=" menuStatus != null">
+				m1.menuStatus in 
+				<foreach collection="menuStatus" item = "status" open="(" separator="," close=")">
+			    	#{status}  
+			    </foreach> 
+			</if>
+		</where>
 		<if test="pageNo != null and pageSize != null ">
 			limit #{pageNo},#{pageSize}
 		</if>
 	</select>
 	
-	<select id="getCount" resultType="Integer">
-		select count(1) from sys_menu where menuStatus in (0,1)
+	<select id="getCount" parameterType="map" resultType="Integer">
+		select count(1) from sys_menu 
+		<where>
+			<if test=" menuStatus != null">
+				m1.menuStatus in 
+				<foreach collection="menuStatus" item = "status" open="(" separator="," close=")">
+			    	#{status}  
+			    </foreach> 
+			</if>
+		</where>
 	</select>
-	<delete id=""></delete>
+	
+	<delete id="delete" parameterType="String">
+		delete from sys_menu where id = #{id}
+	</delete>
+	
+	<delete id="deleteBatchById" parameterType="list">
+		<![CDATA[ 
+			delete from sys_menu where id in 
+		 ]]>
+		 <foreach collection="list" item="id" open="(" separator="," close=")">
+		 	#{id}
+		 </foreach>
+	</delete>
+	
+	<update id="update" parameterType="com.xxfeii.baseside.modules.sys.entity.Menu">
+		update sys_menu set 
+		<trim suffixOverrides=",">
+			<if test="menuName != null"> menuName = #{menuName}, </if>
+			<if test="menuUrl != null"> menuUrl = #{menuUrl} ,</if>
+			<if test="menuStatus != null"> menuStatus = #{menuStatus} ,</if>
+			<if test="pid != null"> pid = #{pid} ,</if>
+			<if test="menuRemark != null"> menuRemark = #{menuRemark} ,</if>
+			<if test="menuType != null"> menuType = #{menuType} ,</if>
+		</trim>
+		where id = #{id}
+	</update>
 </mapper>

@@ -22,6 +22,13 @@ public interface BaseMapper<T> {
 	public int insert(T t);
 	
 	/**
+	 * 批量保存
+	 * @param t
+	 * @return
+	 */
+	public int insertBatch(List<T> t);
+	
+	/**
 	 * 修改
 	 * 
 	 * @param t
@@ -42,7 +49,7 @@ public interface BaseMapper<T> {
 	 * 
 	 * @return
 	 */
-	public int getCount();
+	public int getCount(Map<String, Object> map);
 
 	/**
 	 * 分页查询
@@ -51,5 +58,12 @@ public interface BaseMapper<T> {
 	 * @return
 	 */
 	public List<T> findPage(Map<String, Object> map);
+	
+	/**
+	 * 批量删除
+	 * @param ids
+	 * @return
+	 */
+	public int deleteBatchById(List<String> ids);
 
 }

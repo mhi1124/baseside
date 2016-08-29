@@ -403,6 +403,14 @@
 			<scope>compile</scope>
 		</dependency>
 		<!-- CACHE end -->
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk16 -->
+		<!-- 登录密码加密传输 -->
+		<dependency>
+		    <groupId>org.bouncycastle</groupId>
+		    <artifactId>bcprov-jdk16</artifactId>
+		    <version>1.45</version>
+		</dependency>
+		
 	</dependencies>
 	
 	<build>
