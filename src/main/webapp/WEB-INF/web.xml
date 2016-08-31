@@ -25,6 +25,10 @@
 	<listener>
 		<listener-class>com.xxfeii.baseside.modules.sys.listener.TaskListener</listener-class>
 	</listener>
+	
+	<listener>
+		<listener-class>com.xxfeii.baseside.modules.sys.listener.TestListener</listener-class>
+	</listener>
 
 	<!-- 设置Spring容器加载所有的配置文件的路径 -->
 	<context-param>
