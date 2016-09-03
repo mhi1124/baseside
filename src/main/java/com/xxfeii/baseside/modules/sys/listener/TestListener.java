@@ -41,7 +41,7 @@ public class TestListener implements ServletContextListener{
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		TestSocket();
-		socketManager();
+		//TestSocket();
+		//socketManager();
 	}
 }

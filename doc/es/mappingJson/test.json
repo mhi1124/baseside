@@ -1,0 +1,27 @@
+﻿ {
+	"test": {
+        "properties": {
+            "es_id":{  
+				"type":"string",
+				"store":"yes"
+			 },  
+			 "title":{  
+				"type":"string",
+				"store":"yes",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_max_word"
+			 },  
+			 "posttime":{
+				"type":"date"   
+			 },  
+			 "content":{  
+				"type":"string",
+				"store":"yes",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_max_word",
+				"include_in_all": "true",
+				"boost": 8
+			 } 
+        }
+    } 	 
+}  

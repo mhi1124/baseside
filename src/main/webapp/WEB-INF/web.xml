@@ -33,7 +33,7 @@
 	<!-- 设置Spring容器加载所有的配置文件的路径 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:config/spring-*.xml</param-value>
+		<param-value>classpath*:config/spring-common*.xml</param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

@@ -377,7 +377,12 @@
 			<artifactId>jackson-module-jaxb-annotations</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-		
+		<!-- google json -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.7</version>
+		</dependency>
 		<!-- junit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -410,7 +415,12 @@
 		    <artifactId>bcprov-jdk16</artifactId>
 		    <version>1.45</version>
 		</dependency>
-		
+		<!-- ES -->
+		<dependency>
+		    <groupId>org.elasticsearch</groupId>
+		    <artifactId>elasticsearch</artifactId>
+		    <version>2.4.0</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
