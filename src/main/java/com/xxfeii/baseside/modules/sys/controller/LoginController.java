@@ -18,7 +18,7 @@ import com.xxfeii.baseside.modules.sys.utils.encrypt.RSAUtils;
 
 @Controller
 @Scope("prototype")
-@RequestMapping("login/")
+@RequestMapping("/login/")
 public class LoginController extends BaseController{
 
 	@RequestMapping("index")

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxfeii.baseside.modules.sys.mapper.UserMapper">
+	
+	<sql id="column">id,menuName,menuUrl,menuStatus,pid,menuRemark,menuType</sql>
+	
+	<resultMap id="userMap" type="com.xxfeii.baseside.modules.sys.entity.User">
+		<id property="id" column="id"/>
+		<result property="userName" column="userName"/>
+		<result property="accountName" column="accountName"/>
+		<result property="password" column="password"/>
+		<result property="userStatus" column="userStatus"/>
+		<result property="description" column="description"/>
+		<result property="creatorName" column="creatorName"/>
+		<result property="createTime" column="createTime"/>
+		<result property="updateTime" column="updateTime"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.xxfeii.baseside.modules.sys.entity.User">
+		insert into sys_user ( <include refid="column"/> )
+		values (#{id},#{userName},#{accountName},#{password},#{userStatus},
+		#{description},#{creatorName},#{createTime},#{updateTime})
+	</insert>
+	
+	<insert id="insertBatch" parameterType="list">
+		insert into sys_user (<include refid="column"/>)
+		values 
+		<foreach collection="list" item="user" separator=",">
+			(
+				#{user.id},
+				#{user.userName},
+				#{user.accountName},
+				#{user.password},
+				#{user.userStatus},
+				#{user.description},
+				#{user.creatorName},
+				#{user.createTime},
+				#{user.updateTime}
+			)
+		</foreach>
+	</insert>
+	<select id="findPage" parameterType="map" resultMap="userMap">
+		select 
+			m1.id,
+			m1.userName,
+			m1.accountName,
+			m1.password,
+			m1.userStatus,
+			m1.description,
+			m1.creatorName,
+			m1.createTime,
+			m1.updateTime
+		from sys_user m1
+		<where>
+			<if test=" userStatus != null">
+				m1.userStatus in 
+				<foreach collection="userStatus" item = "status" open="(" separator="," close=")">
+			    	#{status}  
+			    </foreach> 
+			</if>
+		</where>
+		<if test="pageNo != null and pageSize != null ">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="getCount" parameterType="map" resultType="Integer">
+		select count(1) from sys_user 
+		<where>
+			<if test=" userStatus != null">
+				m1.userStatus in 
+				<foreach collection="userStatus" item = "status" open="(" separator="," close=")">
+			    	#{status}  
+			    </foreach> 
+			</if>
+		</where>
+	</select>
+	
+	<delete id="delete" parameterType="String">
+		delete from sys_user where id = #{id}
+	</delete>
+	
+	<delete id="deleteBatchById" parameterType="list">
+		<![CDATA[ 
+			delete from sys_user where id in 
+		 ]]>
+		 <foreach collection="list" item="id" open="(" separator="," close=")">
+		 	#{id}
+		 </foreach>
+	</delete>
+	
+	<update id="update" parameterType="com.xxfeii.baseside.modules.sys.entity.User">
+		update sys_user set 
+		<trim suffixOverrides=",">
+			<if test="userName != null"> userName = #{userName}, </if>
+			<if test="accountName != null"> accountName = #{accountName} ,</if>
+			<if test="password != null"> password = #{password} ,</if>
+			<if test="userStatus != null"> userStatus = #{userStatus} ,</if>
+			<if test="description != null"> description = #{description} ,</if>
+			<if test="updateTime != null"> updateTime = #{updateTime} ,</if>
+		</trim>
+		where id = #{id}
+	</update>
+</mapper>

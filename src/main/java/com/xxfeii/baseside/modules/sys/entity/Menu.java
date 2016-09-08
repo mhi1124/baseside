@@ -19,10 +19,6 @@ public class Menu extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * id
-	 */
-	private String id;
-	/**
 	 * 菜单名称
 	 */
 	private String menuName;
@@ -56,12 +52,6 @@ public class Menu extends BaseEntity {
 	 */
 	private boolean isChoose;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getMenuName() {
 		return menuName;
 	}
@@ -109,6 +99,13 @@ public class Menu extends BaseEntity {
 	}
 	public void setChoose(boolean isChoose) {
 		this.isChoose = isChoose;
+	}
+	@Override
+	public String toString() {
+		return "Menu [menuName=" + menuName + ", menuUrl=" + menuUrl
+				+ ", menuStatus=" + menuStatus + ", pid=" + pid
+				+ ", menuRemark=" + menuRemark + ", menuType=" + menuType
+				+ ", childMenus=" + childMenus + ", isChoose=" + isChoose + "]";
 	}
 	
 	

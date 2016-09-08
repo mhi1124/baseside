@@ -46,7 +46,7 @@
 		<!-- 配置初始配置化文件,前面contextConfigLocation看情况二选一 -->  
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath*:config/spring-common.xml</param-value>
+			<param-value>classpath*:config/spring-mvc.xml</param-value>
 		</init-param>
 		<!-- 启动加载一次 -->  
 		<load-on-startup>1</load-on-startup>
