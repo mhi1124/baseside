@@ -2,17 +2,21 @@ package com.xxfeii.baseside.modules.sys.controller;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xxfeii.baseside.common.controller.BaseController;
+import com.xxfeii.baseside.modules.sys.entity.Menu;
+import com.xxfeii.baseside.modules.sys.service.MenuService;
 import com.xxfeii.baseside.modules.sys.utils.AjaxUtil;
 import com.xxfeii.baseside.modules.sys.utils.encrypt.RSAUtils;
 
@@ -21,6 +25,9 @@ import com.xxfeii.baseside.modules.sys.utils.encrypt.RSAUtils;
 @RequestMapping("/login/")
 public class LoginController extends BaseController{
 
+	@Autowired
+	private MenuService menuService;
+	
 	@RequestMapping("index")
 	public String toIndex(HttpServletRequest req){
 		String loginName = req.getParameter("loginName");
@@ -39,6 +46,8 @@ public class LoginController extends BaseController{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		List<Menu> menus = menuService.findMenuByUserId("1");
+		req.setAttribute("menus", menus);
 		return "index";
 	}
 	

@@ -91,4 +91,10 @@ public class MenuTest {
 		List<Menu> menus = menuService.findPage(parameters);
 		System.out.println(menus.size());
 	}
+	
+	@Test
+	public void findMenuByUserIdTest(){
+		List<Menu> menus = menuService.findMenuByUserId("1");
+		System.out.println(menus.size());
+	}
 }
