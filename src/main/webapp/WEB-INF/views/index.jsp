@@ -99,12 +99,27 @@
 						<span class="menu-text"> 控制台 </span>
 					</a>
 				</li>
-				<li level="level1" class="">
-					<a href="javascript:void(0)" nav-menu="菜单,/menu/toMenuList.html" >
-						<i class="icon-desktop"></i>
-						<span class="menu-text"> 菜单 </span>
-					</a>
-				</li>
+				<c:forEach var="menu" items="${menus}" varStatus="s">
+					<li level="level1" class="">
+						<a href="javascript:void(0)" <c:if test="${fn:length(menu.menuUrl) gt 0 }"> nav-menu="${menu.menuName },${menu.menuUrl }"</c:if> <c:if test="${fn:length(menu.childMenus) gt 0 }"> class="dropdown-toggle"</c:if>>
+							<i class="${menu.icon }"></i>
+							<span class="menu-text"> ${menu.menuName } </span>
+						</a>
+					</li>
+					<c:if test="${fn:length(menu.childMenus) gt 0 }">
+						<ul class="submenu">
+							<c:forEach var="firstChildrens" items="${menu.childMenus}" varStatus="idx1">
+								<li level="level2" class="">
+									<a href="javascript:void(0)" <c:if test="${fn:length(firstChildrens.menuUrl) gt 0 }">nav-menu="${firstChildrens.menuName },${firstChildrens.menuUrl }"</c:if><c:if test="${fn:length(firstChildrens.childMenus) gt 0 }"> class="dropdown-toggle"</c:if>> 
+										<i class="menu-icon fa fa-caret-right"></i> ${firstChildrens.menuName }
+										<c:if test="${fn:length(firstChildrens.childMenus) gt 0 }"><b class="arrow  fa fa-angle-down"></b></c:if>
+									</a>
+								</li>
+							</c:forEach>
+						</ul>
+					</c:if>
+					
+				</c:forEach>
 			</ul><!-- /.nav-list -->
 	
 			<div class="sidebar-collapse" id="sidebar-collapse">

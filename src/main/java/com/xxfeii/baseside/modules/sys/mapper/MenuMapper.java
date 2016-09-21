@@ -1,5 +1,7 @@
 package com.xxfeii.baseside.modules.sys.mapper;
 
+import java.util.List;
+
 import com.xxfeii.baseside.common.mapper.BaseMapper;
 import com.xxfeii.baseside.modules.sys.entity.Menu;
 
@@ -13,4 +15,11 @@ import com.xxfeii.baseside.modules.sys.entity.Menu;
  */
 public interface MenuMapper extends BaseMapper<Menu>{
 
+	/**
+	 * 查询用户权限内的菜单
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public List<Menu> findMenuByUserId(String userId);
 }
