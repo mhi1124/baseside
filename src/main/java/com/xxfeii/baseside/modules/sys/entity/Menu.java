@@ -19,6 +19,11 @@ public class Menu extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
+	 * id
+	 */
+	private Integer sid;
+	
+	/**
 	 * 菜单名称
 	 */
 	private String menuName;
@@ -33,7 +38,7 @@ public class Menu extends BaseEntity {
 	/**
 	 * 父id
 	 */
-	private String pid;
+	private Integer pid;
 	/**
 	 * 说明
 	 */
@@ -46,7 +51,10 @@ public class Menu extends BaseEntity {
 	 * 菜单的图标
 	 */
 	private String icon;
-	
+	/**
+	 * 父菜单的路径
+	 */
+	private String parentPath;
 	/**
 	 * 子菜单
 	 */
@@ -56,6 +64,12 @@ public class Menu extends BaseEntity {
 	 */
 	private boolean isChoose;
 	
+	public String getParentPath() {
+		return parentPath;
+	}
+	public void setParentPath(String parentPath) {
+		this.parentPath = parentPath;
+	}
 	public String getMenuName() {
 		return menuName;
 	}
@@ -74,10 +88,10 @@ public class Menu extends BaseEntity {
 	public void setMenuStatus(Integer menuStatus) {
 		this.menuStatus = menuStatus;
 	}
-	public String getPid() {
+	public Integer getPid() {
 		return pid;
 	}
-	public void setPid(String pid) {
+	public void setPid(Integer pid) {
 		this.pid = pid;
 	}
 	public String getMenuRemark() {
@@ -111,11 +125,19 @@ public class Menu extends BaseEntity {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
+	
+	public Integer getSid() {
+		return sid;
+	}
+	public void setSid(Integer sid) {
+		this.sid = sid;
+	}
 	@Override
 	public String toString() {
-		return "Menu [menuName=" + menuName + ", menuUrl=" + menuUrl
-				+ ", menuStatus=" + menuStatus + ", pid=" + pid
+		return "Menu [sid=" + sid + ", menuName=" + menuName + ", menuUrl="
+				+ menuUrl + ", menuStatus=" + menuStatus + ", pid=" + pid
 				+ ", menuRemark=" + menuRemark + ", menuType=" + menuType
+				+ ", icon=" + icon + ", parentPath=" + parentPath
 				+ ", childMenus=" + childMenus + ", isChoose=" + isChoose + "]";
 	}
 	

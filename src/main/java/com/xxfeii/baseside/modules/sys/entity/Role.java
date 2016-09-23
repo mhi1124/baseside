@@ -22,6 +22,10 @@ public class Role extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
+	 * id
+	 */
+	private String sid;
+	/**
 	 * 角色名
 	 */
 	private String roleName;
@@ -107,12 +111,22 @@ public class Role extends BaseEntity {
 		this.userList = userList;
 	}
 
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+
 	@Override
 	public String toString() {
-		return "Role [roleName=" + roleName + ", roleKey=" + roleKey
-				+ ", status=" + status + ", description=" + description
-				+ ", createTime=" + createTime + ", updateTime=" + updateTime
-				+ ", userList=" + userList + "]";
+		return "Role [sid=" + sid + ", roleName=" + roleName + ", roleKey="
+				+ roleKey + ", status=" + status + ", description="
+				+ description + ", createTime=" + createTime + ", updateTime="
+				+ updateTime + ", userList=" + userList + "]";
 	}
+
+	
 	
 }

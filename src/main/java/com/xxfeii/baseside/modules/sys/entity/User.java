@@ -18,6 +18,10 @@ public class User extends BaseEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * id
+	 */
+	private String sid;
 
 	/**
 	 * 用户真实姓名
@@ -150,12 +154,13 @@ public class User extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "User [userName=" + userName + ", accountName=" + accountName
-				+ ", password=" + password + ", userStatus=" + userStatus
-				+ ", description=" + description + ", creatorName="
-				+ creatorName + ", createTime=" + createTime + ", updateTime="
-				+ updateTime + ", role=" + role + ", userInfo=" + userInfo
-				+ ", roleName=" + roleName + "]";
+		return "User [sid=" + sid + ", userName=" + userName + ", accountName="
+				+ accountName + ", password=" + password + ", userStatus="
+				+ userStatus + ", description=" + description
+				+ ", creatorName=" + creatorName + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + ", role=" + role
+				+ ", userInfo=" + userInfo + ", roleName=" + roleName + "]";
 	}
 
+	
 }
