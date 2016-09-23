@@ -5,7 +5,7 @@
 	<sql id="column">id,menuName,menuUrl,menuStatus,pid,menuRemark,menuType</sql>
 	
 	<resultMap id="userMap" type="com.xxfeii.baseside.modules.sys.entity.User">
-		<id property="id" column="id"/>
+		<id property="sid" column="sid"/>
 		<result property="userName" column="userName"/>
 		<result property="accountName" column="accountName"/>
 		<result property="password" column="password"/>
@@ -18,7 +18,7 @@
 	
 	<insert id="insert" parameterType="com.xxfeii.baseside.modules.sys.entity.User">
 		insert into sys_user ( <include refid="column"/> )
-		values (#{id},#{userName},#{accountName},#{password},#{userStatus},
+		values (#{sid},#{userName},#{accountName},#{password},#{userStatus},
 		#{description},#{creatorName},#{createTime},#{updateTime})
 	</insert>
 	
@@ -27,7 +27,7 @@
 		values 
 		<foreach collection="list" item="user" separator=",">
 			(
-				#{user.id},
+				#{user.sid},
 				#{user.userName},
 				#{user.accountName},
 				#{user.password},
@@ -41,7 +41,7 @@
 	</insert>
 	<select id="findPage" parameterType="map" resultMap="userMap">
 		select 
-			m1.id,
+			m1.sid,
 			m1.userName,
 			m1.accountName,
 			m1.password,
@@ -82,9 +82,9 @@
 	
 	<delete id="deleteBatchById" parameterType="list">
 		<![CDATA[ 
-			delete from sys_user where id in 
+			delete from sys_user where sid in 
 		 ]]>
-		 <foreach collection="list" item="id" open="(" separator="," close=")">
+		 <foreach collection="list" item="sid" open="(" separator="," close=")">
 		 	#{id}
 		 </foreach>
 	</delete>
@@ -99,6 +99,6 @@
 			<if test="description != null"> description = #{description} ,</if>
 			<if test="updateTime != null"> updateTime = #{updateTime} ,</if>
 		</trim>
-		where id = #{id}
+		where sid = #{sid}
 	</update>
 </mapper>

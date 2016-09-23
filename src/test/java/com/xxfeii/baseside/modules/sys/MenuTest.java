@@ -25,7 +25,6 @@ public class MenuTest {
 	@Test
 	public void insertTest(){
 		Menu t = new Menu();
-		t.setId("fdsfdsfdsfd");
 		t.setMenuName("test");
 		menuService.insert(t);
 	}
@@ -34,7 +33,7 @@ public class MenuTest {
 	public void deleteBatchByIdTest(){
 		List<String> ids = new ArrayList<String>();
 		ids.add("1");
-		ids.add("5");
+		ids.add("fdsfdsfdsfd11");
 		ids.add("fdsfdsfdsfd");
 		menuService.deleteBatchById(ids);
 	}
@@ -42,13 +41,11 @@ public class MenuTest {
 	@Test
 	public void insertBatchTest(){
 		Menu t = new Menu();
-		t.setId("fdsfdsfdsfd");
 		t.setMenuName("test");
 		t.setMenuUrl("fdsfdsf");
 		List<Menu> menus = new ArrayList<Menu>();
 		menus.add(t);
 		Menu t1 = new Menu();
-		t1.setId("fdsfdsfdsfd11");
 		t1.setMenuName("test");
 		t1.setMenuUrl("fdfdf");
 		menus.add(t1);
@@ -75,7 +72,6 @@ public class MenuTest {
 	@Test
 	public void updateTest(){
 		Menu t = new Menu();
-		t.setId("fdsfdsfdsfd11");
 		t.setMenuUrl("");
 		t.setMenuType(0);
 		int s = menuService.update(t);
@@ -86,7 +82,7 @@ public class MenuTest {
 		Map<String,Object> parameters = new HashMap<String,Object>();
 		parameters.put("pageNo", 0);
 		parameters.put("pageSize", 10);
-		int[] menuStatus = {1,2};
+		int[] menuStatus = {0,1};
 		parameters.put("menuStatus", menuStatus);
 		List<Menu> menus = menuService.findPage(parameters);
 		System.out.println(menus.size());

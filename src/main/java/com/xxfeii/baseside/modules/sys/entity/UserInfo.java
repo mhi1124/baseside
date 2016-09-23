@@ -19,6 +19,10 @@ public class UserInfo extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
+	 * id
+	 */
+	private String sid;
+	/**
 	 * 性别 1:男；2 ：女
 	 */
 	private Integer sex;
@@ -92,11 +96,20 @@ public class UserInfo extends BaseEntity {
 		this.createTime = createTime;
 	}
 
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+
 	@Override
 	public String toString() {
-		return "UserInfo [sex=" + sex + ", birthday=" + birthday
-				+ ", telephone=" + telephone + ", email=" + email
+		return "UserInfo [sid=" + sid + ", sex=" + sex + ", birthday="
+				+ birthday + ", telephone=" + telephone + ", email=" + email
 				+ ", address=" + address + ", createTime=" + createTime + "]";
 	}
 
+	
 }

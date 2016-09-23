@@ -26,7 +26,7 @@ public class TreeUtil {
 	public List<Menu> packageMenu(List<Menu> menus){
 		List<Menu> tmenus = new ArrayList<Menu>();
 		for(Menu menu : menus){
-			if(StringUtils.isBlank(menu.getPid())){
+			if(null == menu.getPid()){
 				packageMenu(menu,menus);
 				tmenus.add(menu);
 			}
@@ -60,7 +60,7 @@ public class TreeUtil {
 		Menu m = null;
 		for(int i=0,size=menus.size();i<size;i++){
 			m = menus.get(i);
-			if(m.getPid().equals(menu.getId())){
+			if(null != m.getPid() && m.getPid().equals(menu.getSid())){
 				childMenus.add(m);
 			}
 		}

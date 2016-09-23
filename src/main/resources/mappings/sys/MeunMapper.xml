@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxfeii.baseside.modules.sys.mapper.MenuMapper">
 	
-	<sql id="column">id,menuName,menuUrl,menuStatus,pid,menuRemark,menuType,icon</sql>
+	<sql id="column">menuName,menuUrl,menuStatus,pid,menuRemark,menuType,icon,parentPath</sql>
 	
-	<sql id="menuC">m.id,m.menuName,m.menuUrl,m.menuStatus,m.pid,m.menuRemark,m.menuType,m.icon</sql>
+	<sql id="menuC">m.sid,m.menuName,m.menuUrl,m.menuStatus,m.pid,m.menuRemark,m.menuType,m.icon,m.parentPath</sql>
 	
 	<resultMap id="menuMap" type="com.xxfeii.baseside.modules.sys.entity.Menu">
-		<id property="id" column="id"/>
+		<id property="sid" column="sid"/>
 		<result property="menuName" column="menuName"/>
 		<result property="menuUrl" column="menuUrl"/>
 		<result property="menuStatus" column="menuStatus"/>
@@ -15,11 +15,12 @@
 		<result property="menuRemark" column="menuRemark"/>
 		<result property="menuType" column="menuType"/>
 		<result property="icon" column="icon"/>
+		<result property="parentPath" column="parentPath"/>
 	</resultMap>
 	
-	<insert id="insert" parameterType="com.xxfeii.baseside.modules.sys.entity.Menu">
+	<insert id="insert" parameterType="com.xxfeii.baseside.modules.sys.entity.Menu" useGeneratedKeys="true" keyProperty="sid">
 		insert into sys_menu ( <include refid="column"/> )
-		values (#{id},#{menuName},#{menuUrl},#{menuStatus},#{pid},#{menuRemark},#{menuType},#{icon})
+		values (#{menuName},#{menuUrl},#{menuStatus},#{pid},#{menuRemark},#{menuType},#{icon},#{parentPath})
 	</insert>
 	
 	<insert id="insertBatch" parameterType="list">
@@ -27,28 +28,29 @@
 		values 
 		<foreach collection="list" item="menu" separator=",">
 			(
-				#{menu.id},
 				#{menu.menuName},
 				#{menu.menuUrl},
 				#{menu.menuStatus},
 				#{menu.pid},
 				#{menu.menuRemark},
 				#{menu.menuType},
-				#{menu.icon}
+				#{menu.icon},
+				#{menu.parentPath}
 			)
 		</foreach>
 	</insert>
 	<select id="findPage" parameterType="map" resultMap="menuMap">
 		select 
-			m1.id,
+			m1.sid,
 			m1.menuName,
 			m1.menuUrl,
 			m1.menuStatus,
 			m1.pid,
 			m1.menuRemark,
 			m1.menuType,
-			m1.icon
-		from sys_menu m1 left join sys_menu m2 on m1.pid =m2.id 
+			m1.icon,
+			m1.parentPath
+		from sys_menu m1 left join sys_menu m2 on m1.pid =m2.sid 
 		<where>
 			<if test=" menuStatus != null">
 				m1.menuStatus in 
@@ -63,7 +65,7 @@
 	</select>
 	
 	<select id="getCount" parameterType="map" resultType="Integer">
-		select count(1) from sys_menu 
+		select count(1) from sys_menu m1
 		<where>
 			<if test=" menuStatus != null">
 				m1.menuStatus in 
@@ -75,15 +77,15 @@
 	</select>
 	
 	<delete id="delete" parameterType="String">
-		delete from sys_menu where id = #{id}
+		delete from sys_menu where sid = #{sid}
 	</delete>
 	
 	<delete id="deleteBatchById" parameterType="list">
 		<![CDATA[ 
-			delete from sys_menu where id in 
+			delete from sys_menu where sid in 
 		 ]]>
-		 <foreach collection="list" item="id" open="(" separator="," close=")">
-		 	#{id}
+		 <foreach collection="list" item="sid" open="(" separator="," close=")">
+		 	#{sid}
 		 </foreach>
 	</delete>
 	
@@ -97,8 +99,9 @@
 			<if test="menuRemark != null"> menuRemark = #{menuRemark} ,</if>
 			<if test="menuType != null"> menuType = #{menuType} ,</if>
 			<if test="icon != null"> icon = #{icon} ,</if>
+			<if test="parentPath != null">parentPath = #{parentPath}</if>
 		</trim>
-		where id = #{id}
+		where sid = #{sid}
 	</update>
 	
 	<select id="findMenuByUserId" parameterType="String" resultMap="menuMap">
@@ -106,9 +109,9 @@
 		FROM sys_menu m, sys_role_menu rm, sys_role r, sys_role_user ru
 		WHERE 
 			m.menuType != 2
-			AND m.id = rm.m_id
-			AND rm.r_id = r.id
-			AND r.id = ru.r_id
+			AND m.sid = rm.m_id
+			AND rm.r_id = r.sid
+			AND r.sid = ru.r_id
 			AND ru.u_id = #{userId}
 	</select>
 </mapper>

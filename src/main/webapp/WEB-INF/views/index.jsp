@@ -105,20 +105,45 @@
 							<i class="${menu.icon }"></i>
 							<span class="menu-text"> ${menu.menuName } </span>
 						</a>
+						<c:if test="${fn:length(menu.childMenus) gt 0 }">
+							<ul class="submenu">
+								<c:forEach var="firstMenu" items="${menu.childMenus}" varStatus="idx1">
+									<li level="level2" class="">
+										<a href="javascript:void(0)" <c:if test="${fn:length(firstMenu.menuUrl) gt 0 }">nav-menu="${menu.menuName },${firstMenu.menuName },${firstMenu.menuUrl }"</c:if><c:if test="${fn:length(firstMenu.childMenus) gt 0 }"> class="dropdown-toggle"</c:if>> 
+											<i class="menu-icon fa fa-caret-right"></i> ${firstMenu.menuName }
+											<c:if test="${fn:length(firstMenu.childMenus) gt 0 }"><b class="arrow  fa fa-angle-down"></b></c:if>
+										</a>
+										<c:if test="${fn:length(firstMenu.childMenus) gt 0 }">
+											<ul class="submenu">
+												<!-- 三级 -->
+												<c:forEach var="secondMenu" items="${firstMenu.childMenus}" varStatus="idx2">
+													<li level="level3" class="">
+														<a href="javascript:void(0)" <c:if test="${fn:length(secondMenu.menuUrl) gt 0 }">nav-menu="${menu.menuName },${firstMenu.menuName },${secondMenu.menuName },${secondMenu.menuUrl }"</c:if><c:if test="${fn:length(secondMenu.childMenus) gt 0 }"> class="dropdown-toggle"</c:if>> 
+															<i class="menu-icon fa fa-caret-right"></i> ${secondMenu.menuName }
+															<c:if test="${fn:length(secondMenu.childMenus) gt 0 }"><b class="arrow  fa fa-angle-down"></b></c:if>
+														</a>
+														<c:if test="${fn:length(secondMenu.childMenus) gt 0 }">
+															<ul class="submenu">
+																<!-- 四级 -->
+																<c:forEach var="thridMenu" items="${secondMenu.childMenus}" varStatus="idx3">
+																<li level="level4" class="">
+																	<a href="javascript:void(0)" <c:if test="${fn:length(thridMenu.menuUrl) gt 0 }">nav-menu="${menu.menuName },${firstMenu.menuName },${secondMenu.menuName },${thridMenu.menuName },${secondMenu.menuUrl }"</c:if><c:if test="${fn:length(thridMenu.childMenus) gt 0 }"> class="dropdown-toggle"</c:if>> 
+																		<i class="menu-icon fa fa-caret-right"></i> ${thridMenu.menuName }
+																		<c:if test="${fn:length(thridMenu.childMenus) gt 0 }"><b class="arrow  fa fa-angle-down"></b></c:if>
+																	</a>
+																</li>
+																</c:forEach>
+															</ul>
+														</c:if>
+													</li>
+												</c:forEach>
+											</ul>
+										</c:if>
+									</li>
+								</c:forEach>
+							</ul>
+						</c:if>
 					</li>
-					<c:if test="${fn:length(menu.childMenus) gt 0 }">
-						<ul class="submenu">
-							<c:forEach var="firstChildrens" items="${menu.childMenus}" varStatus="idx1">
-								<li level="level2" class="">
-									<a href="javascript:void(0)" <c:if test="${fn:length(firstChildrens.menuUrl) gt 0 }">nav-menu="${firstChildrens.menuName },${firstChildrens.menuUrl }"</c:if><c:if test="${fn:length(firstChildrens.childMenus) gt 0 }"> class="dropdown-toggle"</c:if>> 
-										<i class="menu-icon fa fa-caret-right"></i> ${firstChildrens.menuName }
-										<c:if test="${fn:length(firstChildrens.childMenus) gt 0 }"><b class="arrow  fa fa-angle-down"></b></c:if>
-									</a>
-								</li>
-							</c:forEach>
-						</ul>
-					</c:if>
-					
 				</c:forEach>
 			</ul><!-- /.nav-list -->
 	
