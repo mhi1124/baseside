@@ -53,7 +53,7 @@ public class Role extends BaseEntity {
 	/**
 	 * 角色下所有用户列表结合
 	 */
-	private List<User> userList = new ArrayList<>();
+	private List<User> userList = new ArrayList<User>();
 
 	public String getRoleName() {
 		return roleName;

@@ -68,10 +68,13 @@
 		select count(1) from sys_user 
 		<where>
 			<if test=" userStatus != null">
-				m1.userStatus in 
-				<foreach collection="userStatus" item = "status" open="(" separator="," close=")">
-			    	#{status}  
-			    </foreach> 
+				userStatus = #{userStatus}
+			</if>
+			<if test=" accountName != null">
+				and accountName = #{accountName}
+			</if>
+			<if test=" password != null">
+				and password = #{password}
 			</if>
 		</where>
 	</select>
@@ -101,4 +104,18 @@
 		</trim>
 		where sid = #{sid}
 	</update>
+	
+	<select id="findUserByAccountName" parameterType="String" resultMap="userMap">
+		select 
+			m1.sid,
+			m1.userName,
+			m1.accountName,
+			m1.password,
+			m1.userStatus,
+			m1.description,
+			m1.creatorName,
+			m1.createTime,
+			m1.updateTime
+		from sys_user m1 where m1.accountName = #{accountName} and m1.password = #{password}
+	</select>
 </mapper>

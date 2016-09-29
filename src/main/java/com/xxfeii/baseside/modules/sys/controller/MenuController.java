@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.xxfeii.baseside.common.controller.BaseController;
 import com.xxfeii.baseside.modules.sys.entity.Menu;
 import com.xxfeii.baseside.modules.sys.service.MenuService;
+import com.xxfeii.baseside.modules.sys.utils.Constant;
 import com.xxfeii.baseside.modules.sys.utils.PagerUtil;
 import com.xxfeii.baseside.modules.sys.utils.dtgrid.Pager;
 
@@ -26,16 +27,16 @@ public class MenuController extends BaseController{
 	@Resource
 	private MenuService menuService;
 	
-	@RequestMapping("toAddMenu")
+	@RequestMapping("toAddMenu.html")
 	public String toAddMenu(HttpServletRequest req){
-		return "modules/sys/addMenu";
+		return Constant.BACK_PATH+"modules/sys/addMenu";
 	}
 	
-	@RequestMapping("addMenu")
+	@RequestMapping("addMenu.html")
 	public String addMenu(Menu menu,HttpServletRequest req){
 		String menuName = req.getParameter("menuName");
 		menuService.insert(menu);
-		return "modules/sys/listMenu";
+		return Constant.BACK_PATH+"/modules/sys/listMenu";
 	}
 	
 	/**
@@ -45,7 +46,7 @@ public class MenuController extends BaseController{
 	 */
 	@RequestMapping("toMenuList.html")
 	public String toMenuList(HttpServletRequest req){
-		return "modules/sys/menuList";
+		return Constant.BACK_PATH+"/modules/sys/menuList";
 	}
 	
 	@RequestMapping("menuList.html")

@@ -22,4 +22,11 @@ public interface MenuService extends BaseService<Menu> {
 	 * @return
 	 */
 	public List<Menu> findMenuByUserId(String userId);
+	
+	/**
+	 * 根据登陆账户获取用户的菜单
+	 * @param accountName
+	 * @return
+	 */
+	public List<Menu> findMenuByAccountName(String accountName);
 }
