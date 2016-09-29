@@ -114,4 +114,17 @@
 			AND r.sid = ru.r_id
 			AND ru.u_id = #{userId}
 	</select>
+	
+	<select id="findMenuByAccountName" parameterType="String" resultMap="menuMap">
+		SELECT <include refid="menuC"/> 
+		FROM sys_menu m, sys_role_menu rm, sys_role r, sys_role_user ru,sys_user u
+		WHERE 
+			m.menuType != 2
+			AND m.sid = rm.m_id
+			AND rm.r_id = r.sid
+			AND r.sid = ru.r_id
+			AND ru.u_id = u.sid
+			and u.accountName = #{accountName}
+	</select>
+	
 </mapper>

@@ -21,9 +21,14 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	@Override
 	public List<Menu> findMenuByUserId(String userId) {
 		List<Menu> ymenus = menuMapper.findMenuByUserId(userId);
-		TreeUtil treeUtil = new TreeUtil();
-		List<Menu> menus = treeUtil.packageMenu(ymenus);
+		List<Menu> menus = TreeUtil.packageMenu(ymenus);
 		return menus;
+	}
+
+	@Override
+	public List<Menu> findMenuByAccountName(String accountName) {
+		List<Menu> menus = menuMapper.findMenuByAccountName(accountName);
+		return TreeUtil.packageMenu(menus);
 	}
 
 }

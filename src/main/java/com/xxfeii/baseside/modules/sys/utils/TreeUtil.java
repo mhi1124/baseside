@@ -23,7 +23,7 @@ public class TreeUtil {
 	 * @param menus
 	 * @return
 	 */
-	public List<Menu> packageMenu(List<Menu> menus){
+	public static List<Menu> packageMenu(List<Menu> menus){
 		List<Menu> tmenus = new ArrayList<Menu>();
 		for(Menu menu : menus){
 			if(null == menu.getPid()){
@@ -39,7 +39,7 @@ public class TreeUtil {
 	 * @param menu
 	 * @param menus
 	 */
-	private void packageMenu(Menu menu,List<Menu> menus){
+	private static void packageMenu(Menu menu,List<Menu> menus){
 		List<Menu> childMenus = getChildList(menu,menus);
 		menu.setChildMenus(childMenus);
 		for(Menu childMenu : childMenus){
@@ -55,7 +55,7 @@ public class TreeUtil {
 	 * @param menus 所有的菜单
 	 * @return 菜单的子菜单
 	 */
-	private List<Menu> getChildList(Menu menu,List<Menu> menus){
+	private static List<Menu> getChildList(Menu menu,List<Menu> menus){
 		List<Menu> childMenus = new ArrayList<Menu>();
 		Menu m = null;
 		for(int i=0,size=menus.size();i<size;i++){
@@ -73,7 +73,7 @@ public class TreeUtil {
 	 * @param menus
 	 * @return 
 	 */
-	private boolean hasChild(Menu menu,List<Menu> menus){
+	private static boolean hasChild(Menu menu,List<Menu> menus){
 		return getChildList(menu,menus).size() > 0 ? true:false;
 	}
 }

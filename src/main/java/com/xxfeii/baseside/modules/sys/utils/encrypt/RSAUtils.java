@@ -22,17 +22,28 @@ import java.util.Map;
 
 import javax.crypto.Cipher;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * 加密登陆信息工具类
+ * @author 80002196
+ *
+ */
 public class RSAUtils {
+	
+	private static final Logger logger = LoggerFactory.getLogger(RSAUtils.class);
+	
 	public static final int KEYSIZE = 512;
 
 	public static void main(String[] args) throws Exception {
 		RSAUtils rsa = new RSAUtils();
 		// rsa.createKey();
 		RSAPublicKey publicKey = (RSAPublicKey) rsa.loadKey("E://public_key");
-		String endata = rsa.encrypttoStr(publicKey, "12345");
+		String endata = RSAUtils.encrypttoStr(publicKey, "12345");
 		RSAPrivateKey privateKey = (RSAPrivateKey) rsa
 				.loadKey("E://private_key");
-		String data = rsa.decrypttoStr(privateKey, endata);
+		String data = RSAUtils.decrypttoStr(privateKey, endata);
 
 		// 模
 		String Modulus = publicKey.getModulus().toString(16);
@@ -43,16 +54,17 @@ public class RSAUtils {
 		System.out.println("Exponent:" + Exponent);
 		System.out.println("Modulus:" + Modulus);
 		// 使用模和指数获取公钥
+		@SuppressWarnings("unused")
 		RSAPublicKey pukey = getPublicKey(publicKey.getModulus().toString(),
 				publicKey.getPublicExponent().toString());
+		@SuppressWarnings("unused")
 		RSAPrivateKey prkey = getPrivateKey(publicKey.getModulus().toString(),
 				private_exponent);
 		String jspwd = "376e08b67b5553bd738b2a8e45c9074c1296d46a3bb85345666f73bbfefcf7467d6272db9e3194bd47cd1fce63c69e03c705aae23caf01f4f3ffbe23ec111fc6";
 
-		RandUtil rand = new RandUtil();
 		// String data_16 = rand.parseByte2HexStr(jspwd.getBytes());
 		System.out.println("js解密长度：" + jspwd.length());
-		String data2 = rsa.decrypttoStr(privateKey, jspwd);
+		String data2 = RSAUtils.decrypttoStr(privateKey, jspwd);
 		System.out.println("js解密：" + data2);
 		System.out.println("加密后内容：" + new String(endata));
 		System.out.println("解密后内容：" + new String(data));
@@ -68,7 +80,7 @@ public class RSAUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public String encrypttoStr(Key publicKey, String content) throws Exception {
+	public static String encrypttoStr(Key publicKey, String content) throws Exception {
 		RandUtil rand = new RandUtil();
 		String endata = rand.parseByte2HexStr(publicEnrypy(publicKey, content));
 		return endata;
@@ -84,14 +96,14 @@ public class RSAUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public String decrypttoStr(Key privateKey, String endata) throws Exception {
+	public static String decrypttoStr(Key privateKey, String endata) throws Exception {
 		RandUtil rand = new RandUtil();
 		String data = new String(privateEncode(privateKey,
 				rand.parseHexStr2Byte(endata)));
 		return data;
 	}
 
-	public String decrypttoStr_normal(Key privateKey, String endata)
+	public static String decrypttoStr_normal(Key privateKey, String endata)
 			throws Exception {
 		String data = new String(privateEncode(privateKey, endata.getBytes()));
 		return data;
@@ -144,6 +156,7 @@ public class RSAUtils {
 	 * 
 	 * @throws Exception
 	 */
+	@SuppressWarnings("static-method")
 	public Map<String, Object> createKey() {
 
 		try {
@@ -188,10 +201,11 @@ public class RSAUtils {
 	 * @throws FileNotFoundException
 	 * @throws ClassNotFoundException
 	 */
+	@SuppressWarnings("static-method")
 	public Key loadKey(String keyUrl) throws IOException,
 			FileNotFoundException, ClassNotFoundException {
-		ObjectInputStream inputStream = new ObjectInputStream(
-				new FileInputStream(new File(keyUrl)));
+		@SuppressWarnings("resource")
+		ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(new File(keyUrl)));
 		Key key = (Key) inputStream.readObject();
 		return key;
 	}
@@ -268,4 +282,22 @@ public class RSAUtils {
 		}
 	}
 
+	/**
+	 * 根据秘钥解密
+	 * @param endata 需要解密的数据
+	 * @param modulus 摸
+	 * @param exponent 指数
+	 * @return
+	 */
+	public static String encode(String endata,String modulus, String exponent){
+		RSAPrivateKey prkey = getPrivateKey(modulus,exponent);
+		String data = "";
+		try {
+			data = RSAUtils.decrypttoStr(prkey,endata);
+		} catch (Exception e) {
+			logger.error("encode have error ===>"+e.getMessage());;
+		}
+		return data;
+	}
+	
 }
