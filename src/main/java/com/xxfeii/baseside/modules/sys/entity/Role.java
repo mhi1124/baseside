@@ -34,7 +34,7 @@ public class Role extends BaseEntity {
 	 */
 	private String roleKey;
 	/**
-	 * 角色状态
+	 * 角色状态 1：正常；2：锁定；3：删除
 	 */
 	private Integer status;
 	/**
@@ -55,6 +55,12 @@ public class Role extends BaseEntity {
 	 */
 	private List<User> userList = new ArrayList<User>();
 
+	/**
+	 * 该角色下的菜单
+	 */
+	private List<Menu> menuList = new ArrayList<Menu>();
+	
+	
 	public String getRoleName() {
 		return roleName;
 	}
@@ -117,6 +123,14 @@ public class Role extends BaseEntity {
 
 	public void setSid(String sid) {
 		this.sid = sid;
+	}
+
+	public List<Menu> getMenuList() {
+		return menuList;
+	}
+
+	public void setMenuList(List<Menu> menuList) {
+		this.menuList = menuList;
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class Menu extends BaseEntity {
 	 */
 	private String menuUrl;
 	/**
-	 * 状态：0，正常；1，暂停使用；2，删除
+	 * 状态：1，正常；2，暂停使用；3，删除
 	 */
 	private Integer menuStatus;
 	/**
@@ -44,7 +44,7 @@ public class Menu extends BaseEntity {
 	 */
 	private String menuRemark;
 	/**
-	 *  类型 0:目录;1:菜单;2:按钮
+	 *  类型 1:目录;2:菜单;3:按钮
 	 */
 	private Integer menuType;
 	/**

@@ -174,7 +174,7 @@
 	
 			</div><!-- /.page-content -->
 		</div><!-- /.main-content -->
-		<div class="ace-settings-container" id="ace-settings-container">
+		<div class="ace-settings-container" id="ace-settings-container" style="display: none;">
 			<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
 				<i class="icon-cog bigger-150"></i>
 			</div>
@@ -248,6 +248,10 @@
 
 <!-- datePicker -->
 <script src="${ctx}/static/plug-ins/datePicker/WdatePicker.js"></script>
+
+<!-- 弹出层 -->
+<script type="text/javascript" src="${ctx}/static/plug-ins/layer-v2.3/layer.js"/>
+<script type="text/javascript" src="${ctx}/static/plug-ins/jquery-validation/jquery.validate.min.js"></script>
 <script type="text/javascript">
 $(function() {
     base.index.initNavigation();

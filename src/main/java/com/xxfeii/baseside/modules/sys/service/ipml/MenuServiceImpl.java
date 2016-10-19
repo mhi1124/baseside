@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.xxfeii.baseside.common.service.impl.BaseServiceImpl;
 import com.xxfeii.baseside.modules.sys.entity.Menu;
@@ -29,6 +30,19 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	public List<Menu> findMenuByAccountName(String accountName) {
 		List<Menu> menus = menuMapper.findMenuByAccountName(accountName);
 		return TreeUtil.packageMenu(menus);
+	}
+
+	@Transactional
+	@Override
+	public boolean deleteMenuAndRole(List<String> ids) {
+		menuMapper.deleteBatchById(ids);
+		menuMapper.deleteMenuRole(ids);
+		return true;
+	}
+
+	@Override
+	public Menu findMenuById(Long sid) {
+		return menuMapper.findMenuById(sid);
 	}
 
 }

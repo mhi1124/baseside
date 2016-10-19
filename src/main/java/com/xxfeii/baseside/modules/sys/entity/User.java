@@ -152,6 +152,27 @@ public class User extends BaseEntity {
 		return roleName;
 	}
 
+	
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+
+	public Integer getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(Integer userStatus) {
+		this.userStatus = userStatus;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
 	@Override
 	public String toString() {
 		return "User [sid=" + sid + ", userName=" + userName + ", accountName="

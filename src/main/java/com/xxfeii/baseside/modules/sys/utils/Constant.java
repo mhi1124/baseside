@@ -9,7 +9,7 @@ public class Constant {
 
 	/**
 	 * 后台页面路径
-	 * 值为：/WEB-INF/view
+	 * 值为：/WEB-INF/views
 	 */
 	public static final String BACK_PATH = "/WEB-INF/views";
 	

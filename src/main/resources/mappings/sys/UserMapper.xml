@@ -58,6 +58,12 @@
 			    	#{status}  
 			    </foreach> 
 			</if>
+			<if test=" accountName != null">
+				and m1.accountName like concat('%',#{accountName},'%')
+			</if>
+			<if test=" userName != null">
+				and m1.userName like concat('%',#{userName},'%')
+			</if>
 		</where>
 		<if test="pageNo != null and pageSize != null ">
 			limit #{pageNo},#{pageSize}
@@ -72,6 +78,9 @@
 			</if>
 			<if test=" accountName != null">
 				and accountName = #{accountName}
+			</if>
+			<if test=" userName != null">
+				and userName = #{userName}
 			</if>
 			<if test=" password != null">
 				and password = #{password}

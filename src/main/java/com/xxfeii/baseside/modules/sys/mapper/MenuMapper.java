@@ -2,6 +2,8 @@ package com.xxfeii.baseside.modules.sys.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.xxfeii.baseside.common.mapper.BaseMapper;
 import com.xxfeii.baseside.modules.sys.entity.Menu;
 
@@ -29,4 +31,26 @@ public interface MenuMapper extends BaseMapper<Menu>{
 	 * @return
 	 */
 	public List<Menu> findMenuByAccountName(String accountName);
+	
+	/**
+	 * 删除菜单的权限
+	 * @param ids
+	 * @return
+	 */
+	public int deleteMenuRole(List<String> ids);
+	
+	/**
+	 * 为菜单添加权限
+	 * @param rid
+	 * @param mid
+	 * @return
+	 */
+	public int addMenuRole(@Param("rid")String rid,@Param("mid")String mid);
+	
+	/**
+	 * 通过id查询菜单
+	 * @param sid
+	 * @return
+	 */
+	public Menu findMenuById(Long sid);
 }

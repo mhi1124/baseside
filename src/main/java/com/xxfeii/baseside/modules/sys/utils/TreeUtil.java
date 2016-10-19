@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.xxfeii.baseside.common.model.Select2Entity;
 import com.xxfeii.baseside.modules.sys.entity.Menu;
 
 /**
@@ -17,6 +18,16 @@ import com.xxfeii.baseside.modules.sys.entity.Menu;
  */
 public class TreeUtil {
 
+	
+	/**
+	 * 生成select2下拉组件数据时遍历的次数
+	 */
+	private int selectCnt = 0;
+	
+	/**
+	 * select2下拉组件数据对象
+	 */
+	private List<Select2Entity> selectTree = new ArrayList<Select2Entity>();
 	
 	/**
 	 * 组装菜单
@@ -75,5 +86,47 @@ public class TreeUtil {
 	 */
 	private static boolean hasChild(Menu menu,List<Menu> menus){
 		return getChildList(menu,menus).size() > 0 ? true:false;
+	}
+	
+	/**
+	 * 根据父节点的ID获取所有子节点
+	 * @param list	具有树形结构特点的集合
+	 * @param parent	父节点ID
+	 * @return	树形结构集合
+	 */
+	public List<Select2Entity> getSelectTree(List<Menu> list) {
+		//List<Menu> returnList = packageMenu(list);
+		return recursionForSelect(list);
+	}
+	
+	/**
+	 * 递归列表
+	 * @param list
+	 * @param t
+	 */
+	private List<Select2Entity> recursionForSelect(List<Menu> list) {
+		String str = "";
+		for(int i=0; i< selectCnt; i++)
+		{
+			str += "&nbsp;&nbsp;&nbsp;";
+		}
+		for (Menu re : list) {
+			if(null == re.getPid())
+			{
+				str = "";
+				selectCnt = 0;
+			}
+			Select2Entity se = new Select2Entity();
+			se.setId(re.getSid().toString());
+			se.setText(str + re.getMenuName());
+			se.setName(re.getMenuName());
+			selectTree.add(se);
+			if(null != re.getChildMenus() && re.getChildMenus().size() > 0)
+			{
+				selectCnt ++;
+				recursionForSelect(re.getChildMenus());
+			}
+		}
+		return selectTree;
 	}
 }

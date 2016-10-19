@@ -29,4 +29,18 @@ public interface MenuService extends BaseService<Menu> {
 	 * @return
 	 */
 	public List<Menu> findMenuByAccountName(String accountName);
+	
+	/**
+	 * 删除菜单及所被赋的权限
+	 * @param ids
+	 * @return
+	 */
+	public boolean deleteMenuAndRole(List<String> ids);
+	
+	/**
+	 * 通过id查询菜单
+	 * @param sid
+	 * @return
+	 */
+	public Menu findMenuById(Long sid);
 }

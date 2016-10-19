@@ -57,10 +57,25 @@ public class MenuTest {
 		Map<String,Object> parameters = new HashMap<String,Object>();
 		parameters.put("pageNo", 0);
 		parameters.put("pageSize", 10);
-		int[] menuStatus = {0,1};
+		int[] menuStatus = {1,2};
 		parameters.put("menuStatus", menuStatus);
 		int count = menuService.getCount(parameters);
 		System.out.println(count);
+	}
+	
+	@Test
+	public void remTest(){
+		List<String> a = new ArrayList<String>();
+		a.add("aa");
+		a.add("bb");
+		a.add("cc");
+		List<String> b = new ArrayList<>();
+		b.add("bb");
+		b.add("dd");
+		a.removeAll(b);
+		for(String s : a){
+			System.out.println(s);
+		}
 	}
 	
 	@Test
@@ -82,8 +97,9 @@ public class MenuTest {
 		Map<String,Object> parameters = new HashMap<String,Object>();
 		parameters.put("pageNo", 0);
 		parameters.put("pageSize", 10);
-		int[] menuStatus = {0,1};
-		parameters.put("menuStatus", menuStatus);
+		//int[] menuStatus = {0,1};
+		//parameters.put("menuStatus", menuStatus);
+		parameters.put("menuName", "test");
 		List<Menu> menus = menuService.findPage(parameters);
 		System.out.println(menus.size());
 	}
@@ -92,5 +108,11 @@ public class MenuTest {
 	public void findMenuByUserIdTest(){
 		List<Menu> menus = menuService.findMenuByUserId("1");
 		System.out.println(menus.size());
+	}
+	
+	@Test
+	public void findMenuByIdTest(){
+		Menu menu = menuService.findMenuById(1l);
+		System.out.println(menu.toString());
 	}
 }

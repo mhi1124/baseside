@@ -50,14 +50,19 @@
 			m1.menuType,
 			m1.icon,
 			m1.parentPath
-		from sys_menu m1 left join sys_menu m2 on m1.pid =m2.sid 
+		from sys_menu m1
 		<where>
-			<if test=" menuStatus != null">
-				m1.menuStatus in 
-				<foreach collection="menuStatus" item = "status" open="(" separator="," close=")">
-			    	#{status}  
-			    </foreach> 
-			</if>
+			<trim prefixOverrides="and">
+				<if test=" menuStatus != null">
+					m1.menuStatus in 
+					<foreach collection="menuStatus" item = "status" open="(" separator="," close=")">
+				    	#{status}  
+				    </foreach> 
+				</if>
+				<if test=" menuName != null">
+					and m1.menuName like concat('%',#{menuName},'%')
+				</if>
+			</trim>
 		</where>
 		<if test="pageNo != null and pageSize != null ">
 			limit #{pageNo},#{pageSize}
@@ -67,12 +72,17 @@
 	<select id="getCount" parameterType="map" resultType="Integer">
 		select count(1) from sys_menu m1
 		<where>
-			<if test=" menuStatus != null">
-				m1.menuStatus in 
-				<foreach collection="menuStatus" item = "status" open="(" separator="," close=")">
-			    	#{status}  
-			    </foreach> 
-			</if>
+			<trim prefixOverrides="and">
+				<if test=" menuStatus != null">
+					m1.menuStatus in 
+					<foreach collection="menuStatus" item = "status" open="(" separator="," close=")">
+				    	#{status}  
+				    </foreach> 
+				</if>
+				<if test=" menuName != null">
+					and m1.menuName like concat('%',#{menuName},'%')
+				</if>
+			</trim>
 		</where>
 	</select>
 	
@@ -107,8 +117,8 @@
 	<select id="findMenuByUserId" parameterType="String" resultMap="menuMap">
 		SELECT <include refid="menuC"/> 
 		FROM sys_menu m, sys_role_menu rm, sys_role r, sys_role_user ru
-		WHERE 
-			m.menuType != 2
+		WHERE m.menuStatus = 1 
+			AND m.menuType != 3
 			AND m.sid = rm.m_id
 			AND rm.r_id = r.sid
 			AND r.sid = ru.r_id
@@ -119,12 +129,43 @@
 		SELECT <include refid="menuC"/> 
 		FROM sys_menu m, sys_role_menu rm, sys_role r, sys_role_user ru,sys_user u
 		WHERE 
-			m.menuType != 2
+			m.menuStatus = 1 
+			AND m.menuType != 3
 			AND m.sid = rm.m_id
 			AND rm.r_id = r.sid
 			AND r.sid = ru.r_id
 			AND ru.u_id = u.sid
 			and u.accountName = #{accountName}
 	</select>
+	
+	<!-- 为菜单添加权限 -->
+	<insert id="addMenuRole" parameterType="String" useGeneratedKeys="true" keyProperty="sid">
+		insert into sys_role_menu (r_id,m_id) values (#{rid},#{mid})
+	</insert>
+	
+	<!-- 删除菜单的权限 -->
+	<delete id="deleteMenuRole" parameterType="list">
+		<![CDATA[ 
+			delete from sys_role_menu where m_id in 
+		 ]]>
+		 <foreach collection="list" item="mid" open="(" separator="," close=")">
+		 	#{mid}
+		 </foreach>
+	</delete>
+	
+	<select id="findMenuById" parameterType="Long" resultType="com.xxfeii.baseside.modules.sys.entity.Menu">
+		select 
+			m1.sid,
+			m1.menuName,
+			m1.menuUrl,
+			m1.menuStatus,
+			m1.pid,
+			m1.menuRemark,
+			m1.menuType,
+			m1.icon,
+			m1.parentPath
+		from sys_menu m1 where m1.sid = #{id}
+	</select>
+	
 	
 </mapper>

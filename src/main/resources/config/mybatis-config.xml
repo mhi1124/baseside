@@ -6,6 +6,9 @@
 	
 	<!-- 实体类,简称 -设置别名 -->
 	<typeAliases>
+		<typeAlias type="com.xxfeii.baseside.modules.sys.entity.Role" alias="role"/>
+		<typeAlias type="com.xxfeii.baseside.modules.sys.entity.User" alias="user"/>
+		<typeAlias type="com.xxfeii.baseside.modules.sys.entity.Menu" alias="menu"/>
 	</typeAliases>
 	<!-- 实体接口映射资源 -->
 	<!--
