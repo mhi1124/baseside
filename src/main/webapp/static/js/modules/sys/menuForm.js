@@ -35,6 +35,8 @@ $().ready(function() {
             },
             menuName : {
                 required : true
+            },sourceKey : {
+            	required : true
             },
             type : {
                 required : true
@@ -54,6 +56,7 @@ $().ready(function() {
             parentId : "请选择上级资源",
             menuName : "请填写资源名称",
             type : "请选择资源类型",
+            sourceKey : "请填写权限标识",
             menuUrl : "请填写资源URL",
             icon : "请选择菜单图标"
         },

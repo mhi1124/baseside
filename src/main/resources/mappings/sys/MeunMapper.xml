@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxfeii.baseside.modules.sys.mapper.MenuMapper">
 	
-	<sql id="column">menuName,menuUrl,menuStatus,pid,menuRemark,menuType,icon,parentPath</sql>
+	<sql id="column">menuName,menuUrl,menuStatus,pid,menuRemark,menuType,icon,parentPath,sourceKey</sql>
 	
-	<sql id="menuC">m.sid,m.menuName,m.menuUrl,m.menuStatus,m.pid,m.menuRemark,m.menuType,m.icon,m.parentPath</sql>
+	<sql id="menuC">m.sid,m.menuName,m.menuUrl,m.menuStatus,m.pid,m.menuRemark,m.menuType,m.icon,m.parentPath,m.sourceKey</sql>
 	
-	<resultMap id="menuMap" type="com.xxfeii.baseside.modules.sys.entity.Menu">
+	<resultMap id="menuMap" type="menu">
 		<id property="sid" column="sid"/>
 		<result property="menuName" column="menuName"/>
 		<result property="menuUrl" column="menuUrl"/>
@@ -16,11 +16,14 @@
 		<result property="menuType" column="menuType"/>
 		<result property="icon" column="icon"/>
 		<result property="parentPath" column="parentPath"/>
+		<result property="sourceKey" column="sourceKey"/>
 	</resultMap>
 	
-	<insert id="insert" parameterType="com.xxfeii.baseside.modules.sys.entity.Menu" useGeneratedKeys="true" keyProperty="sid">
+	<insert id="insert" parameterType="menu" useGeneratedKeys="true" keyProperty="sid">
 		insert into sys_menu ( <include refid="column"/> )
-		values (#{menuName},#{menuUrl},#{menuStatus},#{pid},#{menuRemark},#{menuType},#{icon},#{parentPath})
+		values (#{menuName},#{menuUrl},#{menuStatus},#{pid},
+				#{menuRemark},#{menuType},#{icon},#{parentPath},
+				#{sourceKey})
 	</insert>
 	
 	<insert id="insertBatch" parameterType="list">
@@ -35,7 +38,8 @@
 				#{menu.menuRemark},
 				#{menu.menuType},
 				#{menu.icon},
-				#{menu.parentPath}
+				#{menu.parentPath},
+				#{menu.sourceKey}
 			)
 		</foreach>
 	</insert>
@@ -49,7 +53,8 @@
 			m1.menuRemark,
 			m1.menuType,
 			m1.icon,
-			m1.parentPath
+			m1.parentPath,
+			m1.sourceKey
 		from sys_menu m1
 		<where>
 			<trim prefixOverrides="and">
@@ -99,7 +104,7 @@
 		 </foreach>
 	</delete>
 	
-	<update id="update" parameterType="com.xxfeii.baseside.modules.sys.entity.Menu">
+	<update id="update" parameterType="menu">
 		update sys_menu set 
 		<trim suffixOverrides=",">
 			<if test="menuName != null"> menuName = #{menuName}, </if>
@@ -109,7 +114,8 @@
 			<if test="menuRemark != null"> menuRemark = #{menuRemark} ,</if>
 			<if test="menuType != null"> menuType = #{menuType} ,</if>
 			<if test="icon != null"> icon = #{icon} ,</if>
-			<if test="parentPath != null">parentPath = #{parentPath}</if>
+			<if test="parentPath != null">parentPath = #{parentPath},</if>
+			<if test="sourceKey != null">sourceKey = #{sourceKey},</if>
 		</trim>
 		where sid = #{sid}
 	</update>
@@ -153,7 +159,7 @@
 		 </foreach>
 	</delete>
 	
-	<select id="findMenuById" parameterType="Long" resultType="com.xxfeii.baseside.modules.sys.entity.Menu">
+	<select id="findMenuById" parameterType="Long" resultType="menu">
 		select 
 			m1.sid,
 			m1.menuName,
@@ -163,7 +169,8 @@
 			m1.menuRemark,
 			m1.menuType,
 			m1.icon,
-			m1.parentPath
+			m1.parentPath,
+			m1.sourceKey
 		from sys_menu m1 where m1.sid = #{id}
 	</select>
 	

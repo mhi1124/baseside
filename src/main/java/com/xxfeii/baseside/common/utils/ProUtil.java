@@ -19,7 +19,7 @@ public class ProUtil {
 	 * 属性文件加载对象
 	 */
 	private static PropertiesLoader loader = new PropertiesLoader(
-			"jdbc.properties", "es.properties");
+			"baseside.properties","jdbc.properties", "es.properties");
 
 	/**
 	 * 获取当前对象实例
@@ -61,6 +61,19 @@ public class ProUtil {
 			return Integer.valueOf(getConfig(key));
 		} catch (Exception e) {
 			return 0;
+		}
+	}
+	
+	/**
+	 * 读取配置文件中boolean类型数据
+	 * @param key
+	 * @return
+	 */
+	public static boolean getBooleanConfig(String key){
+		try {
+			return Boolean.valueOf(getConfig(key));
+		} catch (Exception e) {
+			return false;
 		}
 	}
 	

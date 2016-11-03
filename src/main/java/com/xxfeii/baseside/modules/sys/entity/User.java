@@ -36,7 +36,11 @@ public class User extends BaseEntity {
 	 */
 	private String password;
 	/**
-	 * 状态：0：正常；1：锁定；2：删除
+	 * 加密密码的盐
+	 */
+	private String salt;
+	/**
+	 * 状态：1：正常；2：锁定；3：删除
 	 */
 	private Integer userStatus;
 	/**
@@ -152,7 +156,6 @@ public class User extends BaseEntity {
 		return roleName;
 	}
 
-	
 	public String getSid() {
 		return sid;
 	}
@@ -173,15 +176,20 @@ public class User extends BaseEntity {
 		this.roleName = roleName;
 	}
 
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
 	@Override
 	public String toString() {
-		return "User [sid=" + sid + ", userName=" + userName + ", accountName="
-				+ accountName + ", password=" + password + ", userStatus="
-				+ userStatus + ", description=" + description
-				+ ", creatorName=" + creatorName + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + ", role=" + role
+		return "User [sid=" + sid + ", userName=" + userName + ", accountName=" + accountName + ", password=" + password
+				+ ", salt=" + salt + ", userStatus=" + userStatus + ", description=" + description + ", creatorName="
+				+ creatorName + ", createTime=" + createTime + ", updateTime=" + updateTime + ", role=" + role
 				+ ", userInfo=" + userInfo + ", roleName=" + roleName + "]";
 	}
 
-	
 }

@@ -21,7 +21,7 @@
 		<constructor-arg>
 			<list>
 				<value>classpath:jdbc.properties</value>
-				<!-- <value>classpath:init.properties</value> -->
+				<value>classpath:baseside.properties</value>
 			</list>
 		</constructor-arg>
 	</bean>
@@ -130,6 +130,6 @@
 
 	<!-- 5. 使用声明式事务 transaction-manager：引用上面定义的事务管理器 -->
 	<!-- <tx:annotation-driven transaction-manager="txManager" /> -->
-
+	
 
 </beans>

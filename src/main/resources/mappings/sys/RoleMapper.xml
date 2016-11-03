@@ -78,7 +78,7 @@
 	<select id="findRoleByParam" parameterType="map" resultMap="roleMap">
 		select 
 			sr.sid,sr.roleName,sr.roleKey,sr.status,sr.description,sr.createTime,sr.updateTime,
-			sm.sid,sm.menuName,sm.menuUrl,sm.menuStatus,sm.pid,sm.menuRemark,sm.menuType,sm.icon,sm.parentPath
+			sm.sid as m_id,sm.menuName,sm.menuUrl,sm.menuStatus,sm.pid,sm.menuRemark,sm.menuType,sm.icon,sm.parentPath
 		from sys_role sr left join sys_role_menu srm on sr.sid=srm.r_id 
 		left join sys_menu sm on srm.m_id = sm.sid
 		<where>

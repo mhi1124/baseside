@@ -22,7 +22,7 @@ public class Menu extends BaseEntity {
 	 * id
 	 */
 	private Integer sid;
-	
+
 	/**
 	 * 菜单名称
 	 */
@@ -44,7 +44,7 @@ public class Menu extends BaseEntity {
 	 */
 	private String menuRemark;
 	/**
-	 *  类型 1:目录;2:菜单;3:按钮
+	 * 类型 1:目录;2:菜单;3:按钮
 	 */
 	private Integer menuType;
 	/**
@@ -63,83 +63,113 @@ public class Menu extends BaseEntity {
 	 * 选中状态
 	 */
 	private boolean isChoose;
-	
+	/**
+	 * 资源标识key
+	 */
+	private String sourceKey;
+
 	public String getParentPath() {
 		return parentPath;
 	}
+
 	public void setParentPath(String parentPath) {
 		this.parentPath = parentPath;
 	}
+
 	public String getMenuName() {
 		return menuName;
 	}
+
 	public void setMenuName(String menuName) {
 		this.menuName = menuName;
 	}
+
 	public String getMenuUrl() {
 		return menuUrl;
 	}
+
 	public void setMenuUrl(String menuUrl) {
 		this.menuUrl = menuUrl;
 	}
+
 	public Integer getMenuStatus() {
 		return menuStatus;
 	}
+
 	public void setMenuStatus(Integer menuStatus) {
 		this.menuStatus = menuStatus;
 	}
+
 	public Integer getPid() {
 		return pid;
 	}
+
 	public void setPid(Integer pid) {
 		this.pid = pid;
 	}
+
 	public String getMenuRemark() {
 		return menuRemark;
 	}
+
 	public void setMenuRemark(String menuRemark) {
 		this.menuRemark = menuRemark;
 	}
+
 	public Integer getMenuType() {
 		return menuType;
 	}
+
 	public void setMenuType(Integer menuType) {
 		this.menuType = menuType;
 	}
+
 	public List<Menu> getChildMenus() {
 		return childMenus;
 	}
+
 	public void setChildMenus(List<Menu> childMenus) {
 		this.childMenus = childMenus;
 	}
+
 	public boolean isChoose() {
 		return isChoose;
 	}
+
 	public void setChoose(boolean isChoose) {
 		this.isChoose = isChoose;
 	}
-	
+
 	public String getIcon() {
 		return icon;
 	}
+
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-	
+
 	public Integer getSid() {
 		return sid;
 	}
+
 	public void setSid(Integer sid) {
 		this.sid = sid;
 	}
+
+	public String getSourceKey() {
+		return sourceKey;
+	}
+
+	public void setSourceKey(String sourceKey) {
+		this.sourceKey = sourceKey;
+	}
+
 	@Override
 	public String toString() {
-		return "Menu [sid=" + sid + ", menuName=" + menuName + ", menuUrl="
-				+ menuUrl + ", menuStatus=" + menuStatus + ", pid=" + pid
-				+ ", menuRemark=" + menuRemark + ", menuType=" + menuType
-				+ ", icon=" + icon + ", parentPath=" + parentPath
-				+ ", childMenus=" + childMenus + ", isChoose=" + isChoose + "]";
+		return "Menu [sid=" + sid + ", menuName=" + menuName + ", menuUrl=" + menuUrl + ", menuStatus=" + menuStatus
+				+ ", pid=" + pid + ", menuRemark=" + menuRemark + ", menuType=" + menuType + ", icon=" + icon
+				+ ", parentPath=" + parentPath + ", childMenus=" + childMenus + ", isChoose=" + isChoose
+				+ ", sourceKey=" + sourceKey + "]";
 	}
-	
-	
+
 }

@@ -1,94 +1,284 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/include/taglib.jsp"%>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>登录页面 </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- basic styles -->
+		<link href="${ctx}/static/plug-ins/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/font-awesome.min.css" />
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+		<!-- ace styles -->
+		<link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/ace.min.css" />
+		<link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/ace-skins.min.css" />
+		
+		<!-- page specific plugin styles -->
+		<!-- fonts -->
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+		<!-- ace styles -->
+		<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="${ctx}/static/plug-ins/assets/css/ace-ie.min.css" />
+		<![endif]-->
+		<!-- inline styles related to this page -->
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="${ctx}/static/plug-ins/assets/js/html5shiv.js"></script>
+		<script src="${ctx}/static/plug-ins/assets/js/respond.min.js"></script>
+		<![endif]-->
+		
+	</head>
 
-<title>登陆页面</title>
-</head>
-<body>
-<input id="userId" type="hidden" value="<c:if test="${not empty sessionScope.userSessionId}">${sessionScope.userSessionId }</c:if>"/>
-	<form id="login" action="${ctx}/login.html" method="post">
-		<input type="hidden" id="subPwd" name="subPwd" />
-		<table align="center">
-    		<tr>
-    			<td>登录</td>
-    		</tr>
-    		<tr>
-    			<td>用户名：<input type="text" id="loginName" name="loginName" /></td>
-    		</tr>
-    		<tr>
-    			<td>密&nbsp;&nbsp;&nbsp;码：<input type="password" id="password" name="password" /></td>
-    		</tr>
-    		<tr>
-    			<td><input id="subt" type="button" value="登录" /></td>
-    		</tr>
-    	</table>
-	</form>
-</body>
-<script src="${ctx}/static/plug-ins/encrypt/jquery-1.7.2.min.js"></script>
-<script src="${ctx}/static/plug-ins/encrypt/security.js"></script>
-<script type="text/javascript" src="${ctx }/static/plug-ins/layer-v2.3/layer.js"></script>
+	<body class="login-layout">
+		<input id="error" type="hidden" value="${error}"/>
+		<input id="userId" type="hidden" value="<c:if test="${not empty sessionScope.userSessionId}">${sessionScope.userSessionId }</c:if>"/>
+		<div class="main-container">
+			<div class="main-content">
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="login-container">
+							<div class="center">
+								<h1>
+									<!-- <i class="icon-leaf green"></i> -->
+									<!-- <span class="red">Ace</span> -->
+									<span class="white">欢迎登陆</span>
+								</h1>
+							</div>
 
+							<div class="space-6"></div>
+
+							<div class="position-relative">
+								<div id="login-box" class="login-box visible widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header blue lighter bigger">
+												<i class="icon-coffee green"></i>
+												请输入账号密码
+											</h4>
+
+											<div class="space-6"></div>
+
+											<form id="loginform" action="${ctx}/login.html" method="post">
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" id="accountName" name="accountName" placeholder="Username" />
+															<i class="icon-user"></i>
+														</span>
+													</label>
+
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+															<i class="icon-lock"></i>
+														</span>
+													</label>
+													
+													<label class="block clearfix"> 
+														<input id="captcha" name="captcha" type="text" class="form-control" placeholder="验证码" style="width:60%;float:left;"/>
+													<img id="kaptchaImage" src="${ctx }/servlet/validateCodeServlet" style="cursor:pointer; margin-left:10px;" title="点击更换"/>  
+													</label>
+													<div class="space"></div>
+
+													<div class="clearfix">
+														<input type="hidden" id="rememberMe" name="rememberMe" value="false"/>
+														<label class="inline">
+															<input type="checkbox" class="ace" id="rememberMeCheckBox"/>
+															<span class="lbl"> 记住我</span>
+														</label>
+
+														<button type="button" onclick="login();" class="width-35 pull-right btn btn-sm btn-primary">
+															<i class="icon-key"></i>
+															登录
+														</button>
+													</div>
+
+													<div class="space-4"></div>
+												</fieldset>
+											</form>
+
+											<div class="social-or-login center">
+												<span class="bigger-110">Or Login Using</span>
+											</div>
+
+											<div class="social-login center">
+												<a class="btn btn-primary">
+													<i class="icon-facebook"></i>
+												</a>
+
+												<a class="btn btn-info">
+													<i class="icon-twitter"></i>
+												</a>
+
+												<a class="btn btn-danger">
+													<i class="icon-google-plus"></i>
+												</a>
+											</div>
+										</div><!-- /widget-main -->
+
+										<div class="toolbar clearfix">
+											<div>
+												<a href="#" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
+													<i class="icon-arrow-left"></i>
+													I forgot my password
+												</a>
+											</div>
+
+											<div>
+												<a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">
+													I want to register
+													<i class="icon-arrow-right"></i>
+												</a>
+											</div>
+										</div>
+									</div><!-- /widget-body -->
+								</div><!-- /login-box -->
+
+								<div id="forgot-box" class="forgot-box widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header red lighter bigger">
+												<i class="icon-key"></i>
+												Retrieve Password
+											</h4>
+
+											<div class="space-6"></div>
+											<p>
+												Enter your email and to receive instructions
+											</p>
+
+											<form>
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="email" class="form-control" placeholder="Email" />
+															<i class="icon-envelope"></i>
+														</span>
+													</label>
+
+													<div class="clearfix">
+														<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+															<i class="icon-lightbulb"></i>
+															Send Me!
+														</button>
+													</div>
+												</fieldset>
+											</form>
+										</div><!-- /widget-main -->
+
+										<div class="toolbar center">
+											<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+												Back to login
+												<i class="icon-arrow-right"></i>
+											</a>
+										</div>
+									</div><!-- /widget-body -->
+								</div><!-- /forgot-box -->
+
+								<div id="signup-box" class="signup-box widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header green lighter bigger">
+												<i class="icon-group blue"></i>
+												New User Registration
+											</h4>
+
+											<div class="space-6"></div>
+											<p> Enter your details to begin: </p>
+
+											<form>
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="email" class="form-control" placeholder="Email" />
+															<i class="icon-envelope"></i>
+														</span>
+													</label>
+
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" placeholder="Username" />
+															<i class="icon-user"></i>
+														</span>
+													</label>
+
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" placeholder="Password" />
+															<i class="icon-lock"></i>
+														</span>
+													</label>
+
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" placeholder="Repeat password" />
+															<i class="icon-retweet"></i>
+														</span>
+													</label>
+
+													<label class="block">
+														<input type="checkbox" class="ace" />
+														<span class="lbl">
+															I accept the
+															<a href="#">User Agreement</a>
+														</span>
+													</label>
+
+													<div class="space-24"></div>
+
+													<div class="clearfix">
+														<button type="reset" class="width-30 pull-left btn btn-sm">
+															<i class="icon-refresh"></i>
+															Reset
+														</button>
+
+														<button type="button" class="width-65 pull-right btn btn-sm btn-success">
+															Register
+															<i class="icon-arrow-right icon-on-right"></i>
+														</button>
+													</div>
+												</fieldset>
+											</form>
+										</div>
+
+										<div class="toolbar center">
+											<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+												<i class="icon-arrow-left"></i>
+												Back to login
+											</a>
+										</div>
+									</div><!-- /widget-body -->
+								</div><!-- /signup-box -->
+							</div><!-- /position-relative -->
+						</div>
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+			</div>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+<!--[if !IE]> -->
+<script src="${ctx}/static/plug-ins/assets/js/jquery-2.0.3.min.js"></script>
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script src="${ctx}/static/plug-ins/assets/js/jquery-1.10.2.min.js"></script>
+<![endif]-->
+<script src="${ctx}/static/plug-ins/assets/js/jquery.mobile.custom.min.js"></script>
+
+<script type="text/javascript" src="${ctx}/static/plug-ins/layer-v2.3/layer.js"/>
+<!-- inline scripts related to this page -->
 <script type="text/javascript">
-$(function(){
-	
-	//错误提示信息
-	if ("${error}" != "") {
-    	layer.alert('${error}', {icon : 5,shift : 6,time : 0});
+	function show_box(id) {
+	 jQuery('.widget-box.visible').removeClass('visible');
+	 jQuery('#'+id).addClass('visible');
 	}
-	
-	//页面进行跳转到login.html
-	if (window.location.href.indexOf("/login.html") == -1) {
-	    if($("#userId").val() == null || $("#userId").val() == "")
-	    {
-	        top.location.href = "login.html";
-	    }else
-	    {
-	        top.location.href = "index.html";
-	    }
-	}
-	
-	
-	$('#subt').click(function(){
-			var name = $('#loginName').val();
-			var password =$('#password').val();
-			if(name==null||name==""){
-				alert("用户名不得为空！");
-				return;
-			}
-			if(password==null||password==""){
-				alert("密码不得为空！");
-				return;
-			}
-			if($("#isAES").val()){
-					$.ajax({
-					type:"post",
-					url:"${ctx}/loginset.html",
-					success:function(rd){
-						if(rd!=null){
-							//加密模
-							var Modulus = rd.split(';')[0];
-							//公钥指数
-							var public_exponent = rd.split(';')[1];
-							//通过模和公钥参数获取公钥
-							var key = new RSAUtils.getKeyPair(public_exponent, "", Modulus);
-							//颠倒密码的顺序，要不然后解密后会发现密码顺序是反的
-							var reversedPwd = password.split("").reverse().join("");
-							//对密码进行加密传输 
-							var encrypedPwd = RSAUtils.encryptedString(key,reversedPwd);
-							$('#subPwd').val(encrypedPwd);
-							//$('#loginPwd').val(encrypedPwd);
-							$('#login').submit();
-						}
-					}
-				});
-			}else{
-				$('#login').submit();
-			}
-	});
-});
 </script>
+<script type="text/javascript" src="${ctx }/static/js/login.js"></script>
+</body>
 </html>

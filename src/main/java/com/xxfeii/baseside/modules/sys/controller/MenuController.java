@@ -28,6 +28,7 @@ import com.xxfeii.baseside.modules.sys.utils.Constant;
 import com.xxfeii.baseside.modules.sys.utils.PagerUtil;
 import com.xxfeii.baseside.modules.sys.utils.TreeUtil;
 import com.xxfeii.baseside.modules.sys.utils.dtgrid.Pager;
+import com.xxfeii.baseside.util.shiro.ShiroUtil;
 
 @Controller
 @Scope("prototype")
@@ -40,7 +41,8 @@ public class MenuController extends BaseController{
 	@RequestMapping(value="addMenuUI.html")
 	public String toAddMenu(Model model,HttpSession session){
 		try {
-			User user = (User) session.getAttribute(Constant.USE_RSESSION_ID);
+			User user = ShiroUtil.getUser();
+					//(User) session.getAttribute(Constant.USE_RSESSION_ID);
 			List<Menu> menus = menuService.findMenuByUserId(user.getSid());
 			TreeUtil tu = new TreeUtil();
 			List<Select2Entity> smenu = tu.getSelectTree(menus);
@@ -156,7 +158,7 @@ public class MenuController extends BaseController{
 			page.setOrderByColumn(request.getParameter("sidx"));
 			page.setOrderByType(request.getParameter("sord"));
 			
-			User user = (User) request.getSession().getAttribute(Constant.USE_RSESSION_ID);
+			User user = ShiroUtil.getUser();
 			List<Menu> menus = menuService.findMenuByUserId(user.getSid());
 			TreeUtil tu = new TreeUtil();
 			List<Select2Entity> smenu = tu.getSelectTree(menus);

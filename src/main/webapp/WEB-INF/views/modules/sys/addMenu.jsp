@@ -112,6 +112,15 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="control-label col-sm-1 no-padding-right" for="sourceKey">权限标识</label>
+				<div class="col-sm-10">
+					<div class="clearfix">
+						<input class="form-control" name="sourceKey" id="sourceKey" type="text"
+						value="${menu.sourceKey }" placeholder="权限标识..." />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="control-label col-sm-1 no-padding-right" for="icon">资源标识</label>
 				<div class="col-sm-10">
 					<div class="clearfix">
