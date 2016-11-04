@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.xxfeii.baseside.common.controller.BaseController;
 import com.xxfeii.baseside.common.utils.UUIDGenerator;
-import com.xxfeii.baseside.modules.sys.entity.Role;
 import com.xxfeii.baseside.modules.sys.entity.User;
 import com.xxfeii.baseside.modules.sys.service.UserService;
 import com.xxfeii.baseside.modules.sys.utils.Constant;
@@ -33,7 +32,7 @@ import com.xxfeii.baseside.util.shiro.ShiroUtil;
  */
 @Controller
 @Scope("prototype")
-@RequestMapping("user/")
+@RequestMapping("/sys/user")
 public class UserController extends BaseController{
 
 	@Resource

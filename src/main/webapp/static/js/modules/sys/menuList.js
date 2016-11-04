@@ -87,8 +87,8 @@ var dtGridColumns = [{
     hideType : 'xs|sm',
     resolution : function(value, record, column, grid, dataNo, columnNo) {
     	//debugger;
-    	var tag = '<button onclick="base.common.editModel(\'/menu/editUI.html?id='+record.sid+'\', customSearch)" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i></button>';
-    	tag += '<button onclick="base.common.delModel(\'/menu/deleteBatch.html?ids='+record.sid+'\', customSearch)" class="btn btn-xs btn-danger"><i class="icon-trash bigger-120"></i></button>';
+    	var tag = '<button onclick="base.common.editModel(\'/sys/menu/editUI.html?id='+record.sid+'\', customSearch)" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i></button>';
+    	tag += '<button onclick="base.common.delModel(\'/sys/menu/deleteBatch.html?ids='+record.sid+'\', customSearch)" class="btn btn-xs btn-danger"><i class="icon-trash bigger-120"></i></button>';
     	return tag;
        
     }
@@ -100,7 +100,7 @@ var dtGridOption = {
 	    check : true,
 	    checkWidth :'37px',
 	    extraWidth : '37px',
-	    loadURL : ctx + '/menu/menuList.html',
+	    loadURL : ctx + '/sys/menu/menuList.html',
 	    columns : dtGridColumns,
 	    gridContainer : 'dtGridContainer',
 	    toolbarContainer : 'dtGridToolBarContainer',

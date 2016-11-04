@@ -32,7 +32,7 @@ import com.xxfeii.baseside.util.shiro.ShiroUtil;
 
 @Controller
 @Scope("prototype")
-@RequestMapping("menu/")
+@RequestMapping("/sys/menu")
 public class MenuController extends BaseController{
 
 	@Resource

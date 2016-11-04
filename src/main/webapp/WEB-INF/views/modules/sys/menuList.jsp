@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="page-header">
-	<button id="btnAdd" type="button" onclick="base.common.addModel('/menu/addMenuUI.html')" class="btn btn-primary btn-sm">
+	<button id="btnAdd" type="button" onclick="base.common.addModel('/sys/menu/addMenuUI.html')" class="btn btn-primary btn-sm">
 	  	<i class="fa fa-user-plus"></i>&nbsp;添加
 	</button>
 	<!-- <button id="btnEdit" type="button" onclick="webside.common.editModel('/resource/editUI.html')" class="btn btn-info btn-sm">
 		 <i class="fa fa-pencil-square-o"></i>&nbsp;编辑
 	</button> -->
-	<button id="btnDel" type="button" onclick="base.common.delModel('/menu/deleteBatch.html', customSearch)" class="btn btn-danger btn-sm">
+	<button id="btnDel" type="button" onclick="base.common.delModel('/sys/menu/deleteBatch.html', customSearch)" class="btn btn-danger btn-sm">
 		<i class="fa fa-trash-o"></i>&nbsp;批量删除
 	</button>
 </div>

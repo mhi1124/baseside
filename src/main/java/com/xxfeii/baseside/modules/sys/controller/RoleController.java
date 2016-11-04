@@ -38,7 +38,7 @@ import com.xxfeii.baseside.modules.sys.utils.dtgrid.Pager;
  */
 @Controller
 @Scope("prototype")
-@RequestMapping("role/")
+@RequestMapping("/sys/role")
 public class RoleController extends BaseController{
 
 	@Resource

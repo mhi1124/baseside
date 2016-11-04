@@ -9,7 +9,7 @@ $().ready(function() {
                 required : true,
                 remote : {
                     param : {
-                        url : ctx + '/role/validateRoleName.html',
+                        url : ctx + '/sys/role/validateRoleName.html',
                         cache : false
                     },
                     depends : function() {
@@ -53,11 +53,11 @@ $().ready(function() {
             var rid = $("#rid").val();
             var url = "";
             if (undefined != rid ) {
-                url = '/role/editRole.html';
+                url = '/sys/role/editRole.html';
             } else {
-                url = '/role/addRole.html';
+                url = '/sys/role/addRole.html';
             }
-            base.common.commit('roleForm', url, '/role/roleListUI.html');
+            base.common.commit('roleForm', url, '/sys/role/roleListUI.html');
         }
     });
 });

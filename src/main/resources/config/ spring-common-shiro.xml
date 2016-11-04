@@ -15,9 +15,9 @@
 		<!-- shiro的核心安全接口 -->
 		<property name="securityManager" ref="securityManager" />
 		<!-- 要求登录时的链接 -->
-		<property name="loginUrl" value="/login.html" />
+		<property name="loginUrl" value="/sys/login.html" />
 		<!-- 登陆成功后要跳转的连接 -->
-		<property name="successUrl" value="/index.html" />
+		<property name="successUrl" value="/sys/index.html" />
 		<!-- 未授权时要跳转的连接 -->
 		<property name="unauthorizedUrl" value="/denied.jsp" />
 		
@@ -34,14 +34,11 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/static/** = anon
-				/login.html = authc
-				/logout.html = logout
-				/register.html = anon
-				/captcha.html = anon
-				/denied.jsp = anon
+				/cms-web/** = anon
+				/sys/login.html = authc
+				/sys/logout.html = logout
 				/view/error/** = anon
-				/*/withoutAuth/** = anon
-				/* = authc
+				/sys/* = authc
 			</value>
 		</property>
 		<!-- 自定义过滤器 -->

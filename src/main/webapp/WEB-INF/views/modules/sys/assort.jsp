@@ -34,11 +34,11 @@
 	</div>
 </div>
 <div class="center">
-	<button id="btnAdd" type="button" onclick="sumbitForm('/role/assort.html' , '/role/roleListUI.html')" class="btn btn-success btn-sm">
+	<button id="btnAdd" type="button" onclick="sumbitForm('/sys/role/assort.html' , '/sys/role/roleListUI.html')" class="btn btn-success btn-sm">
 	  	<i class="fa fa-user-plus"></i>&nbsp;
 		保存
 	</button>
-		<button id="btn" type="button" onclick="base.common.loadPage('/role/roleListUI.html')" class="btn btn-info btn-sm">
+		<button id="btn" type="button" onclick="base.common.loadPage('/sys/role/roleListUI.html')" class="btn btn-info btn-sm">
 		<i class="fa fa-trash-o"></i>&nbsp;返回
 	</button>
 </div>

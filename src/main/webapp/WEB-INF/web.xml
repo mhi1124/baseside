@@ -4,10 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<!-- 欢迎页面 -->
-	<welcome-file-list>
-		<welcome-file>login.jsp</welcome-file>
-	</welcome-file-list>
+	
 
    	<!-- 配置spring的log4j监听 -->
 	<context-param>
@@ -170,5 +167,9 @@
 			<taglib-location>/WEB-INF/tlds/fn.tld</taglib-location>
 		</taglib>
 	</jsp-config>
-
+	
+	<!-- 欢迎页面 -->
+	<welcome-file-list>
+		<welcome-file>/cms-web/login1.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>

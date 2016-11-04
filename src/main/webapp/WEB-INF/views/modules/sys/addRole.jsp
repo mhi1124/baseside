@@ -61,7 +61,7 @@
 		保存
 		</c:if>
 	</button>
-	<button id="btn" type="button" class="btn btn-info btn-sm" onclick="base.common.loadPage('/role/roleListUI.html')">
+	<button id="btn" type="button" class="btn btn-info btn-sm" onclick="base.common.loadPage('/sys/role/roleListUI.html')">
 		<i class="fa fa-undo"></i>&nbsp;返回
 	</button>
 </div>

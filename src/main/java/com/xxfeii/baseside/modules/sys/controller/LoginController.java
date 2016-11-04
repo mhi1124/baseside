@@ -34,12 +34,13 @@ import com.xxfeii.baseside.modules.sys.entity.User;
 import com.xxfeii.baseside.modules.sys.exception.SystemException;
 import com.xxfeii.baseside.modules.sys.service.MenuService;
 import com.xxfeii.baseside.modules.sys.utils.AjaxUtil;
+import com.xxfeii.baseside.modules.sys.utils.Constant;
 import com.xxfeii.baseside.modules.sys.utils.encrypt.RSAUtils;
 import com.xxfeii.baseside.util.shiro.ShiroUtil;
 
 @Controller
 @Scope("prototype")
-@RequestMapping("/")
+@RequestMapping("/sys")
 public class LoginController extends BaseController {
 
 	@Autowired
@@ -49,7 +50,7 @@ public class LoginController extends BaseController {
 	public String login(HttpServletRequest request, HttpServletResponse resp) {
 		try {
 			request.removeAttribute("error");
-			return "/login";
+			return Constant.BACK_PATH+"/modules/sys/login";
 		} catch (Exception e) {
 			throw new SystemException(e);
 		}
@@ -70,7 +71,7 @@ public class LoginController extends BaseController {
 		// 获取用户页面输入的验证码
 		if (!ValidateCodeServlet.validate(req, captcha)) {
 			req.setAttribute("error", "验证码错误！");
-			return "/login";
+			return Constant.BACK_PATH+"/modules/sys/login";
 		} else {
 			// 根据模和私钥指数
 			String modulus = (String) req.getSession().getAttribute("Modulus");
@@ -89,7 +90,7 @@ public class LoginController extends BaseController {
 				} else {
 					token.clear();
 					req.setAttribute("error", "用户名或密码不正确！");
-					return "/login";
+					return Constant.BACK_PATH+"/modules/sys/login";
 				}
 			} catch (UnknownAccountException uae) {
 				if (null != token) {
@@ -97,52 +98,52 @@ public class LoginController extends BaseController {
 				}
 				System.out.println("账户不存在！");
 				req.setAttribute("error", "账户不存在！");
-				return "/login";
+				return Constant.BACK_PATH+"/modules/sys/login";
 			} catch (IncorrectCredentialsException ice) {
 				if (null != token) {
 					token.clear();
 				}
 				System.out.println("密码错误！");
 				req.setAttribute("error", "密码错误！");
-				return "/login";
+				return Constant.BACK_PATH+"/modules/sys/login";
 			} catch (LockedAccountException e) {
 				if (null != token) {
 					token.clear();
 				}
 				System.out.println("您的账户已被锁定,请与管理员联系或10分钟后重试！");
 				req.setAttribute("error", "您的账户已被锁定,请与管理员联系或10分钟后重试！");
-				return "/login";
+				return Constant.BACK_PATH+"/modules/sys/login";
 			} catch (ExcessiveAttemptsException e) {
 				if (null != token) {
 					token.clear();
 				}
 				System.out.println("您连续输错5次,帐号将被锁定10分钟!");
 				req.setAttribute("error", "您连续输错5次,帐号将被锁定10分钟!");
-				return "/login";
+				return Constant.BACK_PATH+"/modules/sys/login";
 			} catch (ExpiredCredentialsException eca) {
 				if (null != token) {
 					token.clear();
 				}
 				System.out.println("账户凭证过期！");
 				req.setAttribute("error", "账户凭证过期！");
-				return "/login";
+				return Constant.BACK_PATH+"/modules/sys/login";
 			} catch (AuthenticationException e) {
 				if (null != token) {
 					token.clear();
 				}
 				System.out.println("账户验证失败！");
 				req.setAttribute("error", "账户验证失败！");
-				return "/login";
+				return Constant.BACK_PATH+"/modules/sys/login";
 			} catch (Exception e) {
 				if (null != token) {
 					token.clear();
 				}
 				System.out.println("登录异常，请联系管理员！");
 				req.setAttribute("error", "登录异常，请联系管理员！");
-				return "/login";
+				return Constant.BACK_PATH+"/modules/sys/login";
 			}
 		}
-		return "redirect:index.html";
+		return "redirect:/sys/index.html";
 	}
 
 	/**
@@ -160,9 +161,9 @@ public class LoginController extends BaseController {
 		if (null != user) {
 			List<Menu> menus = menuService.findMenuByAccountName(user.getAccountName());
 			req.setAttribute("menus", menus);
-			return "/index";
+			return Constant.BACK_PATH+"/modules/sys/index";
 		} else {
-			return "redirect:login.html";
+			return "redirect:/sys/login.html";
 		}
 	}
 

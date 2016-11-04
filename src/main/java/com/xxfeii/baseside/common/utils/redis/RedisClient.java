@@ -37,7 +37,7 @@ public class RedisClient {
 	private ShardedJedisPool shardedJedisPool;// 切片连接池
 
 	// sentinel模式 ：心跳机制+投票裁决
-	private static JedisSentinelPool jedisSentinelPool;// 切片连接池
+	private JedisSentinelPool jedisSentinelPool;// 切片连接池
 	private Jedis jedis1;// 非切片额客户端连接
 
 	public RedisClient() {

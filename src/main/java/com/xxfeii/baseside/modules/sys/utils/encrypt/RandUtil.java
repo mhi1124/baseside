@@ -1,28 +1,34 @@
 package com.xxfeii.baseside.modules.sys.utils.encrypt;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
+
+import com.xxfeii.baseside.common.utils.LoggerUtil;
 
 public class RandUtil {
 
 	public String randKey() {
-
-		Random r = new Random();
-		String code = "";
-
-		for (int i = 0; i < 9; ++i) {
-			if (i % 2 == 0) // 偶数位生产随机整数
-			{
-				code = code + r.nextInt(10);
-			} else// 奇数产生随机字母包括大小写
-			{
-				int temp = r.nextInt(52);
-				char x = (char) (temp < 26 ? temp + 97 : (temp % 26) + 65);
-				code += x;
+		 try {
+			SecureRandom number = SecureRandom.getInstance("SHA1PRNG");
+			String code = "";
+			for (int i = 0; i < 9; ++i) {
+				if (i % 2 == 0) // 偶数位生产随机整数
+				{
+					code = code + number.nextInt(10);
+				} else// 奇数产生随机字母包括大小写
+				{
+					int temp = number.nextInt(52);
+					char x = (char) (temp < 26 ? temp + 97 : (temp % 26) + 65);
+					code += x;
+				}
 			}
+			return code;
+		} catch (NoSuchAlgorithmException e) {
+			LoggerUtil.writeError(e);
+			return null;
 		}
-
-		System.out.println(code);
-		return code;
+		
 	}
 
 	/**

@@ -86,11 +86,11 @@ $().ready(function() {
             var mid = $("#mid").val();
             var url = "";
             if (undefined != mid ) {
-                url = '/menu/editMenu.html';
+                url = '/sys/menu/editMenu.html';
             } else {
-                url = '/menu/addMenu.html';
+                url = '/sys/menu/addMenu.html';
             }
-            base.common.commit('menuForm', url, '/menu/toMenuList.html');
+            base.common.commit('menuForm', url, '/sys/menu/toMenuList.html');
         }
     });
 	//按钮图标事件
@@ -98,7 +98,7 @@ $().ready(function() {
         var iconLayer = layer.open({
             type : 2,
             scrollbar : false,
-            content : ctx + '/menu/icon.html',
+            content : ctx + '/sys/menu/icon.html',
             area : 'auto',
             maxmin : true,
             shift : 4,

@@ -7,13 +7,13 @@ $(document).ready(function() {
 	}
 	
 	//页面进行跳转到login.html
-	if (window.location.href.indexOf("/login.html") == -1) {
+	if (window.location.href.indexOf("/sys/login.html") == -1) {
 	    if($("#userId").val() == null || $("#userId").val() == "")
 	    {
-	        top.location.href = "login.html";
+	        top.location.href = "/sys/login.html";
 	    }else
 	    {
-	        top.location.href = "index.html";
+	        top.location.href = "/sys/index.html";
 	    }
 	} 
     
