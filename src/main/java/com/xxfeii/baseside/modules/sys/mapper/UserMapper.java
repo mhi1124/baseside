@@ -14,4 +14,11 @@ public interface UserMapper extends BaseMapper<User> {
 	 * @return
 	 */
 	public User findUserByAccountName(@Param("accountName")String accountName,@Param("password")String password);
+	
+	/**
+	 * 根据id查询用户
+	 * @param id
+	 * @return
+	 */
+	public User findUserBySid(String id);
 }

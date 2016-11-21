@@ -84,8 +84,8 @@ var dtGridColumns = [{
     hideType : 'xs|sm',
     resolution : function(value, record, column, grid, dataNo, columnNo) {
     	//debugger;
-    	var tag = '<button onclick="base.common.editModel(\'/sys/role/editUI.html?id='+record.sid+'\', customSearch)" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i></button>';
-    	tag += '<button onclick="base.common.delModel(\'/sys/role/deleteBatch.html?ids='+record.sid+'\', customSearch)" class="btn btn-xs btn-danger"><i class="icon-trash bigger-120"></i></button>';
+    	var tag = '<button onclick="base.common.editModel(\'/sys/user/editUI.html?id='+record.sid+'\', customSearch)" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i></button>';
+    	tag += '<button onclick="base.common.delModel(\'/sys/user/deleteBatch.html?ids='+record.sid+'\', customSearch)" class="btn btn-xs btn-danger"><i class="icon-trash bigger-120"></i></button>';
     	return tag;
        
     }

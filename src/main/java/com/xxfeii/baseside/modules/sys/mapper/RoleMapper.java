@@ -3,6 +3,8 @@ package com.xxfeii.baseside.modules.sys.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.xxfeii.baseside.common.mapper.BaseMapper;
 import com.xxfeii.baseside.modules.sys.entity.Role;
 
@@ -48,5 +50,12 @@ public interface RoleMapper extends BaseMapper<Role> {
 	 * @return
 	 */
 	public int addRoleMenuBatch(Map<String,Object> parameter);
+	
+	/**
+	 * 批量添加权限
+	 * @param parameter
+	 * @return
+	 */
+	public int addRoleUser(@Param("uid")String uid,@Param("rid")String rid);
 	
 }

@@ -25,4 +25,7 @@ public interface UserService extends BaseService<User>{
 	 * @return
 	 */
 	public User findUserByAccountName(String accountName,String password);
+	
+	
+	public User findUserById(String id);
 }

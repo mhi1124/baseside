@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.xxfeii.baseside.common.service.BaseService;
 import com.xxfeii.baseside.modules.sys.entity.Role;
+import com.xxfeii.baseside.modules.sys.entity.User;
 import com.xxfeii.baseside.modules.sys.exception.SystemException;
 
 /**
@@ -41,5 +42,13 @@ public interface RoleService extends BaseService<Role>{
 	 * @param menuids
 	 * @return
 	 */
-	public boolean addRolePermBatch(String rid,List<String> menuids) throws Exception;
+	public boolean addRolePermBatch(String rid,List<String> menuids) throws SystemException;
+	
+	/**
+	 * 添加用户角色
+	 * @param user
+	 * @return
+	 * @throws SystemException
+	 */
+	public Integer addRoleUser(User user)throws SystemException;
 }

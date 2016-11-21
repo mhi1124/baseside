@@ -3,6 +3,7 @@ package com.xxfeii.baseside.util.shiro;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;
 
+import com.xxfeii.baseside.common.utils.ProUtil;
 import com.xxfeii.baseside.modules.sys.entity.User;
 
 /**
@@ -12,6 +13,11 @@ import com.xxfeii.baseside.modules.sys.entity.User;
  */
 public class ShiroEndecryptUtil {
 
+	/**
+	 * 加密次数
+	 */
+	public static int shiro_hashIterations=ProUtil.getIntConfig("shiro.hashIterations");
+	
 	/** 
      * 对密码进行md5加密,并返回密文和salt，包含在User对象中 
      * @param username 用户名 
@@ -29,6 +35,20 @@ public class ShiroEndecryptUtil {
         user.setSalt(salt); 
         user.setAccountName(accountName); 
         return user; 
+    }
+    
+    /**
+     * 对用户密码进行加密
+     * @param user
+     * @param hashIterations
+     */
+    public static void md5User(User user,int hashIterations){
+    	SecureRandomNumberGenerator secureRandomNumberGenerator=new SecureRandomNumberGenerator(); 
+        String salt= secureRandomNumberGenerator.nextBytes().toHex(); 
+        //组合username,两次迭代，对密码进行加密 
+        String password_cryto = new Md5Hash(user.getPassword(),user.getAccountName()+salt,hashIterations).toBase64(); 
+        user.setPassword(password_cryto); 
+        user.setSalt(salt); 
     }
     
     public static void main(String[] args) {

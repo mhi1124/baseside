@@ -2,8 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxfeii.baseside.modules.sys.mapper.UserMapper">
 	
-	<sql id="column">id,menuName,menuUrl,menuStatus,pid,menuRemark,menuType,salt</sql>
-	
 	<resultMap id="userMap" type="user">
 		<id property="sid" column="sid"/>
 		<result property="userName" column="userName"/>
@@ -26,6 +24,7 @@
 		</collection>
 	</resultMap>
 	
+	<sql id="column">sid,userName,accountName,password,userStatus,description,creatorName,createTime,updateTime,salt</sql>
 	<insert id="insert" parameterType="user">
 		insert into sys_user ( <include refid="column"/> )
 		values (#{sid},#{userName},#{accountName},#{password},#{userStatus},
@@ -121,7 +120,7 @@
 			delete from sys_user where sid in 
 		 ]]>
 		 <foreach collection="list" item="sid" open="(" separator="," close=")">
-		 	#{id}
+		 	#{sid}
 		 </foreach>
 	</delete>
 	
@@ -161,4 +160,26 @@
 			<if test="password != null"> and m1.password = #{password} </if>
 		</where>
 	</select>
+	
+	<select id="findUserBySid" parameterType="String" resultMap="userMap">
+		select 
+			m1.sid,
+			m1.userName,
+			m1.accountName,
+			m1.password,
+			m1.userStatus,
+			m1.description,
+			m1.creatorName,
+			m1.createTime,
+			m1.updateTime,
+			m1.salt,
+			sr.roleName,
+			sr.roleKey,
+			sr.sid as r_id,
+			sr.roleName as roleName
+		from sys_user m1 left join sys_role_user sru on m1.sid = sru.u_id
+		left join sys_role sr on sru.r_id = sr.sid
+		WHERE m1.sid = #{id}
+	</select>
+	
 </mapper>

@@ -8,6 +8,7 @@ var base = {
 	    	  initMenuEvent : function() {
 	                $("[nav-menu]").each(function() {
 	                    $(this).bind("click", function() {
+	                    	var lay;
 	                        var nav = $(this).attr("nav-menu");
 	                        var sn = nav.split(",");
 	                        //清除用户信息菜单样式
@@ -22,10 +23,14 @@ var base = {
 	                            for (var i = 0; i < sn.length - 1; i++) {
 	                                breadcrumb += '<li class="active">' + sn[i] + '</li>';
 	                            }
+	                            lay = layer.load();
 	                            //设置面包屑内容
 	                            $(".breadcrumb").html(breadcrumb);
 	                            //加载页面
-	                            $(".page-content").load(ctx + sn[sn.length - 1]);
+	                            $(".page-content").empty();
+	                            //加载页面
+	                            $(".page-content").load(ctx + sn[sn.length - 1],function(){
+	                            	layer.close(lay);});
 	                        }
 	                        var level = $(this).parent("li").attr("level");
 	                        if (level == 'level1' || level == 'level2') {
@@ -65,8 +70,10 @@ var base = {
          * @param nav 待加载的资源URL
          */
         loadPage : function(nav) {
+        	var lay1 = layer.load();
             //加载页面
-            $(".page-content").load(ctx + nav);
+            $(".page-content").load(ctx + nav,function(){
+            	layer.close(lay1);});
         },
         /**
          * 新增

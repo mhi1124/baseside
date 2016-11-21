@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xxfeii.baseside.common.service.impl.BaseServiceImpl;
 import com.xxfeii.baseside.modules.sys.entity.Role;
+import com.xxfeii.baseside.modules.sys.entity.User;
 import com.xxfeii.baseside.modules.sys.exception.SystemException;
 import com.xxfeii.baseside.modules.sys.mapper.RoleMapper;
 import com.xxfeii.baseside.modules.sys.service.RoleService;
@@ -61,7 +62,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
 
 	@Transactional
 	@Override
-	public boolean addRolePermBatch(String rid, List<String> menuids) throws Exception{
+	public boolean addRolePermBatch(String rid, List<String> menuids) throws SystemException{
 		boolean flag = false;
 		try {
 			List<String> rids = new ArrayList<>(); 
@@ -90,8 +91,13 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
 			}
 			return flag;
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw new SystemException(e);
 		}
+	}
+
+	@Override
+	public Integer addRoleUser(User user) throws SystemException {
+		return roleMapper.addRoleUser(user.getSid(),user.getRole().getSid());
 	}
 
 	

@@ -51,6 +51,7 @@
 				<if test=" roleName != null">
 					and roleName like concat('%',#{roleName},'%')
 				</if>
+				<if test="roleKey != null"> roleKey != #{roleKey}</if>
 			</trim>
 		</where>
 		<if test="pageNo != null and pageSize != null ">
@@ -169,6 +170,18 @@
 				#{mid}
 			)
 		</foreach>
+	</insert>
+	
+	<insert id="addRoleUser" parameterType="map">
+		insert ignore into sys_role_user (
+			r_id,
+			u_id
+		)   
+		values 
+			(
+				#{rid},
+				#{uid}
+			)
 	</insert>
 	
 </mapper>

@@ -1,4 +1,4 @@
-﻿/*
+/*
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2016-11-03 22:58:37
+Date: 2016-11-21 23:19:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,19 +31,20 @@ CREATE TABLE `sys_menu` (
   `parentPath` varchar(100) DEFAULT NULL COMMENT '父菜单的路径',
   `sourceKey` varchar(255) DEFAULT NULL COMMENT '权限标识',
   PRIMARY KEY (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES ('1', '系统基础管理', '', '1', null, '系统基础管理', '2', 'icon-fa fa-list', null, 'system');
-INSERT INTO `sys_menu` VALUES ('2', '资源管理', '/menu/toMenuList.html', '1', '1', '资源管理', '2', '', null, 'system:menu');
+INSERT INTO `sys_menu` VALUES ('2', '资源管理', '/sys/menu/toMenuList.html', '1', '1', '资源管理', '2', '', null, 'system:menu');
 INSERT INTO `sys_menu` VALUES ('3', '测试目录', '', '1', null, '测试目录', '2', 'fa  fa-beer', null, null);
 INSERT INTO `sys_menu` VALUES ('4', '二级目录', '', '1', '3', '二级目录', '2', null, null, null);
 INSERT INTO `sys_menu` VALUES ('5', '三级目录', '', '1', '4', '三级目录', '2', null, null, null);
 INSERT INTO `sys_menu` VALUES ('6', '四级目录', '', '1', '5', '四级目录', '2', null, null, null);
-INSERT INTO `sys_menu` VALUES ('8', '角色管理', '/role/roleListUI.html', '1', '1', '角色管理', '2', 'fa  fa-user', null, 'system:role');
-INSERT INTO `sys_menu` VALUES ('9', '用户管理', '/user/userListUI.html', '1', '1', '管理用户', '2', 'fa  fa-child', null, 'system:user');
+INSERT INTO `sys_menu` VALUES ('8', '角色管理', '/sys/role/roleListUI.html', '1', '1', '角色管理', '2', 'fa  fa-user', null, 'system:role');
+INSERT INTO `sys_menu` VALUES ('9', '用户管理', '/sys/user/userListUI.html', '1', '1', '管理用户', '2', 'fa  fa-child', null, 'system:user');
+INSERT INTO `sys_menu` VALUES ('10', '平台管理', '', '1', null, '', '2', 'fa  fa-adjust', null, 'plat');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -64,6 +65,7 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES ('1', '超级管理员', 'administrator', '1', '超级管理员', '2016-09-08 23:19:57', '2016-09-08 23:20:01');
+INSERT INTO `sys_role` VALUES ('31238108032c4f08a71748718f302356', '平台管理员', 'lp', '1', '', '2016-11-20 22:18:34', null);
 INSERT INTO `sys_role` VALUES ('4890b4ab58324557adf965b10b4eaeed', '管理员', 'admin', '1', '管理员', '2016-10-19 22:36:33', null);
 
 -- ----------------------------
@@ -75,19 +77,25 @@ CREATE TABLE `sys_role_menu` (
   `r_id` varchar(32) DEFAULT NULL COMMENT '角色id',
   `m_id` varchar(32) DEFAULT NULL COMMENT '菜单或按钮id',
   PRIMARY KEY (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` VALUES ('43', '1', '1');
-INSERT INTO `sys_role_menu` VALUES ('44', '1', '2');
-INSERT INTO `sys_role_menu` VALUES ('45', '1', '8');
-INSERT INTO `sys_role_menu` VALUES ('46', '1', '9');
-INSERT INTO `sys_role_menu` VALUES ('47', '1', '3');
-INSERT INTO `sys_role_menu` VALUES ('48', '1', '4');
-INSERT INTO `sys_role_menu` VALUES ('49', '1', '5');
-INSERT INTO `sys_role_menu` VALUES ('50', '1', '6');
+INSERT INTO `sys_role_menu` VALUES ('63', '4890b4ab58324557adf965b10b4eaeed', '1');
+INSERT INTO `sys_role_menu` VALUES ('64', '4890b4ab58324557adf965b10b4eaeed', '2');
+INSERT INTO `sys_role_menu` VALUES ('65', '4890b4ab58324557adf965b10b4eaeed', '8');
+INSERT INTO `sys_role_menu` VALUES ('66', '4890b4ab58324557adf965b10b4eaeed', '9');
+INSERT INTO `sys_role_menu` VALUES ('67', '31238108032c4f08a71748718f302356', '10');
+INSERT INTO `sys_role_menu` VALUES ('68', '1', '1');
+INSERT INTO `sys_role_menu` VALUES ('69', '1', '2');
+INSERT INTO `sys_role_menu` VALUES ('70', '1', '8');
+INSERT INTO `sys_role_menu` VALUES ('71', '1', '9');
+INSERT INTO `sys_role_menu` VALUES ('72', '1', '3');
+INSERT INTO `sys_role_menu` VALUES ('73', '1', '4');
+INSERT INTO `sys_role_menu` VALUES ('74', '1', '5');
+INSERT INTO `sys_role_menu` VALUES ('75', '1', '6');
+INSERT INTO `sys_role_menu` VALUES ('76', '1', '10');
 
 -- ----------------------------
 -- Table structure for sys_role_user
@@ -98,12 +106,16 @@ CREATE TABLE `sys_role_user` (
   `r_id` varchar(32) DEFAULT NULL COMMENT '角色id',
   `u_id` varchar(32) DEFAULT NULL COMMENT '用户id',
   PRIMARY KEY (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_role_user
 -- ----------------------------
 INSERT INTO `sys_role_user` VALUES ('1', '1', '1');
+INSERT INTO `sys_role_user` VALUES ('2', '4890b4ab58324557adf965b10b4eaeed', '30d3656de3aa4fbbac4df908a36e1fc3');
+INSERT INTO `sys_role_user` VALUES ('3', '1', '4870adc7173d4fc588a67d2bb2671e6a');
+INSERT INTO `sys_role_user` VALUES ('4', '4890b4ab58324557adf965b10b4eaeed', '71641f42104249979309134cecaf3bcb');
+INSERT INTO `sys_role_user` VALUES ('5', '31238108032c4f08a71748718f302356', '799c8d9eb53246a0a02a60d42ffdebff');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -127,6 +139,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES ('1', 'admin', '577341666@qq.com', 'to9Fsi8ObK4WmQ9PSs8g0g==', '1', '超级管理员', '577341666@qq.com', '2016-09-08 23:22:15', '2016-09-08 23:22:20', 'f2307545392defd4dd7226f7c9a90a5f');
+INSERT INTO `sys_user` VALUES ('799c8d9eb53246a0a02a60d42ffdebff', 'ff', 'lmr123456@163.com', 'YzfiZeH4q5xX4qCqrxlykg==', '1', 'f', '577341666@qq.com', '2016-11-20 22:19:22', null, 'e2ed440c9003bb3394f5f49319e3fe97');
 
 -- ----------------------------
 -- Table structure for sys_user_info
