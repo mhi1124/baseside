@@ -130,7 +130,6 @@ var base = {
                 icon : 3,
                 title : '删除提示'
             }, function(index, layero) {
-            	debugger;
             	var delete_ids = [];
 	             $.each(rows, function(index, value) {
 	            	 delete_ids.push(this.sid);

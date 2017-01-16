@@ -35,6 +35,7 @@
 			<value>
 				/static/** = anon
 				/cms-web/** = anon
+				/cms-web/index.html = anon
 				/sys/login.html = authc
 				/sys/logout.html = logout
 				/view/error/** = anon

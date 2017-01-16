@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxfeii.baseside.modules.plat.mapper.PlatFXRateMapper">
+	
+	<sql id="column">sid,currency,sign,rmb</sql>
+	
+	<resultMap id="platFXRateMap" type="PlatFXRate">
+		<id property="sid" column="sid"/>
+		<result property="currency" column="currency"/>
+		<result property="sign" column="sign"/>
+		<result property="rmb" column="rmb"/>
+	</resultMap>
+	
+	
+	<insert id="insert" parameterType="PlatFXRate" useGeneratedKeys="true" keyProperty="sid">
+		INSERT INTO plat_fx_rate 
+		(currency,sign,rmb)
+		VALUES (#{currency},#{sign},#{rmb})
+	</insert>
+	
+	
+	<select id="findPage" parameterType="map" resultMap="platFXRateMap">
+		SELECT <include refid="column"/> 
+		FROM plat_exchange_rate
+		<if test="pageNo != null and pageSize != null ">
+			LIMIT #{pageNo},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="getCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(1) FROM plat_exchange_rate
+	</select>
+	
+	<update id="update" parameterType="PlatFXRate">
+		UPDATE plat_fx_rate SET 
+		<trim suffixOverrides=",">
+			<if test=" currency != null ">currency = #{currency},</if>
+			<if test=" sign != null ">sign = #{sign},</if>
+			<if test=" rmb != null ">rmb = #{rmb},</if>
+		</trim>
+		WHERE sid = #{sid}
+	</update>
+	
+	<select id="findCurrency" resultType="String">
+		SELECT DISTINCT currency FROM plat_fx_rate
+	</select>
+	
+	<select id="findExchangeRateByCurrency" parameterType="String" resultType="PlatFXRate">
+		SELECT <include refid="column"/> 
+		FROM plat_fx_rate
+		WHERE currency = #{currency}
+	</select>
+	
+</mapper>

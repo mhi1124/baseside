@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxfeii.baseside.modules.plat.mapper.PlatAccountMapper">
+	
+	<sql id="column">plat_no,plat_account,paypal_currency,bank_card,type</sql>
+	
+	<resultMap id="platAccountMap" type="PlatAccount">
+		<id property="sid" column="sid"/>
+		<result property="platNo" column="plat_no"/>
+		<result property="platAccount" column="plat_account"/>
+		<result property="paypalCurrency" column="paypal_currency"/>
+		<result property="bankCard" column="bank_card"/>
+		<result property="type" column="type"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="PlatAccount" >
+		insert into plat_account ( <include refid="column"/> )
+		values (#{platNo},#{platAccount},#{paypalCurrency},#{bankCard},#{type})
+	</insert>
+	
+	<insert id="insertBatch" parameterType="list">
+		insert into plat_account (<include refid="column"/>)
+		values 
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.platNo},
+				#{item.platAccount},
+				#{item.paypalCurrency},
+				#{item.bankCard},
+				#{item.type}
+			)
+		</foreach>
+	</insert>
+	<select id="findPage" parameterType="map" resultMap="platAccountMap">
+		select pac.sid,pac.plat_no,pac.plat_account,pac.paypal_currency,
+				pac.bank_card,pac.type
+		from plat_account pac 
+		<!-- left join plat_account_funds paf 
+		on pac.plat_account = paf.plataccount -->
+		<!-- <if test=" baginCreatTime != null and endCreantTime != null">
+			and paf.withdrawTime between #{baginCreatTime} and #{endCreantTime}
+		</if> -->
+		<where>
+			<trim prefixOverrides="and">
+				
+				<if test=" platNo != null and platNo != ''">
+					and pac.plat_no = #{platNo}
+				</if>
+				<if test=" platAccount != null and platAccount != ''">
+					and pac.plat_account = #{platAccount}
+				</if>
+				<if test=" paypalCurrency != null and paypalCurrency != ''">
+					and pac.paypal_currency = #{paypalCurrency}
+				</if>
+				<if test=" bankCard != null and bankCard != ''">
+					and pac.bank_card = #{bankCard}
+				</if>
+				<if test=" type != null and type != ''">
+					and pac.type = #{type}
+				</if>
+				<if test=" sid != null and sid != ''">
+					and pac.sid = #{sid}
+				</if>
+			</trim>
+		</where>
+		GROUP BY pac.plat_account
+		order by pac.plat_no
+		<if test="pageNo != null and pageSize != null ">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="getCount" parameterType="map" resultType="Integer">
+		select count(1) from plat_account 
+		<where>
+			<trim prefixOverrides="and">
+				<if test=" platNo != null and platNo != ''">
+					and plat_no = #{platNo}
+				</if>
+				<if test=" platAccount != null and platAccount != ''">
+					and plat_account = #{platAccount}
+				</if>
+				<if test=" paypalCurrency != null and paypalCurrency != ''">
+					and paypal_currency = #{paypalCurrency}
+				</if>
+				<if test=" bankCard != null and bankCard != '' ">
+					and bank_card = #{bankCard}
+				</if>
+				<if test=" type != null and type != ''">
+					and type = #{type}
+				</if>
+			</trim>
+		</where>
+	</select>
+	
+	<delete id="delete" parameterType="String">
+		delete from plat_account where plat_account = #{platAccount}
+	</delete>
+	
+	<delete id="deleteBatchById" parameterType="list">
+		<![CDATA[ 
+			delete from plat_account where sid in 
+		 ]]>
+		 <foreach collection="list" item="item" open="(" separator="," close=")">
+		 	#{item}
+		 </foreach>
+	</delete>
+	
+	<update id="update" parameterType="PlatAccount">
+		update plat_account set 
+		<trim suffixOverrides=",">
+			<if test=" platNo != null ">plat_no = #{platNo},</if>
+			<if test=" platAccount != null">plat_account = #{platAccount},</if>
+			<if test="paypalCurrency != null "> paypal_currency = #{paypalCurrency}, </if>
+			<if test="bankCard != null "> bank_card = #{bankCard} ,</if>
+			<if test="type != null "> type = #{type} ,</if>
+		</trim>
+		where sid = #{sid}
+	</update>
+	
+	<select id="getPlatNos" resultType="String">
+		select distinct plat_no from plat_account 
+	</select>
+	
+</mapper>

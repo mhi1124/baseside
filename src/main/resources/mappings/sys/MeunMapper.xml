@@ -58,13 +58,13 @@
 		from sys_menu m1
 		<where>
 			<trim prefixOverrides="and">
-				<if test=" menuStatus != null">
+				<if test=" menuStatus != null and menuStatus != ''">
 					m1.menuStatus in 
 					<foreach collection="menuStatus" item = "status" open="(" separator="," close=")">
 				    	#{status}  
 				    </foreach> 
 				</if>
-				<if test=" menuName != null">
+				<if test=" menuName != null and menuName != ''">
 					and m1.menuName like concat('%',#{menuName},'%')
 				</if>
 			</trim>
@@ -78,13 +78,13 @@
 		select count(1) from sys_menu m1
 		<where>
 			<trim prefixOverrides="and">
-				<if test=" menuStatus != null">
+				<if test=" menuStatus != null and menuStatus != ''">
 					m1.menuStatus in 
 					<foreach collection="menuStatus" item = "status" open="(" separator="," close=")">
 				    	#{status}  
 				    </foreach> 
 				</if>
-				<if test=" menuName != null">
+				<if test=" menuName != null and menuName != ''">
 					and m1.menuName like concat('%',#{menuName},'%')
 				</if>
 			</trim>
@@ -107,15 +107,15 @@
 	<update id="update" parameterType="menu">
 		update sys_menu set 
 		<trim suffixOverrides=",">
-			<if test="menuName != null"> menuName = #{menuName}, </if>
-			<if test="menuUrl != null"> menuUrl = #{menuUrl} ,</if>
-			<if test="menuStatus != null"> menuStatus = #{menuStatus} ,</if>
-			<if test="pid != null"> pid = #{pid} ,</if>
-			<if test="menuRemark != null"> menuRemark = #{menuRemark} ,</if>
-			<if test="menuType != null"> menuType = #{menuType} ,</if>
-			<if test="icon != null"> icon = #{icon} ,</if>
-			<if test="parentPath != null">parentPath = #{parentPath},</if>
-			<if test="sourceKey != null">sourceKey = #{sourceKey},</if>
+			<if test="menuName != null and menuName != ''"> menuName = #{menuName}, </if>
+			<if test="menuUrl != null and menuUrl != ''"> menuUrl = #{menuUrl} ,</if>
+			<if test="menuStatus != null and menuStatus != ''"> menuStatus = #{menuStatus} ,</if>
+			<if test="pid != null and pid != ''"> pid = #{pid} ,</if>
+			<if test="menuRemark != null and menuRemark != ''"> menuRemark = #{menuRemark} ,</if>
+			<if test="menuType != null and menuType != ''"> menuType = #{menuType} ,</if>
+			<if test="icon != null and icon != ''"> icon = #{icon} ,</if>
+			<if test="parentPath != null and parentPath != ''">parentPath = #{parentPath},</if>
+			<if test="sourceKey != null and sourceKey != ''">sourceKey = #{sourceKey},</if>
 		</trim>
 		where sid = #{sid}
 	</update>

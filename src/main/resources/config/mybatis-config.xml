@@ -9,6 +9,10 @@
 		<typeAlias type="com.xxfeii.baseside.modules.sys.entity.Role" alias="role"/>
 		<typeAlias type="com.xxfeii.baseside.modules.sys.entity.User" alias="user"/>
 		<typeAlias type="com.xxfeii.baseside.modules.sys.entity.Menu" alias="menu"/>
+		
+		<typeAlias type="com.xxfeii.baseside.modules.plat.entity.PlatAccount" alias="PlatAccount"/>
+		<typeAlias type="com.xxfeii.baseside.modules.plat.entity.PlatFunds" alias="PlatFunds"/>
+		<typeAlias type="com.xxfeii.baseside.modules.plat.entity.PlatFXRate" alias="PlatFXRate"/>
 	</typeAliases>
 	<!-- 实体接口映射资源 -->
 	<!--

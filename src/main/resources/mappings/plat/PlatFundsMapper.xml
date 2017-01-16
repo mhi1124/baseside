@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxfeii.baseside.modules.plat.mapper.PlatFundsMapper">
+	
+	<resultMap id="platFundsMap" type="PlatFunds">
+		<id property="sid" column="sid"/>
+		<result property="platAccount" column="plat_account"/>
+		<result property="creatTime" column="creat_time"/>
+		<result property="withdrawTime" column="withdraw_time"/>
+		<result property="withdrawAmount" column="withdraw_amount"/>
+		<result property="withdrawCurrency" column="withdraw_currency"/>
+		<result property="daozhangTime" column="daozhang_time"/>
+		<result property="daozhangCurrency" column="daozhang_currency"/>
+		
+		<result property="daozhangAmount" column="daozhang_amount"/>
+		<result property="shouxufei" column="shouxufei"/>
+		<result property="estimateAmount" column="estimate_amount"/>
+		<result property="withdrawSign" column="withdraw_sign"/>
+		<result property="daozhangSign" column="daozhang_sign"/>
+		<result property="platNo" column="plat_no"/>
+	</resultMap>
+	
+	<select id="findPage" parameterType="map" resultMap="platFundsMap">
+		SELECT pf.sid,pf.plat_account,pf.creat_time,pf.withdraw_time,
+		pf.withdraw_amount,pf.withdraw_currency,pf.daozhang_time,
+		pf.daozhang_currency,pf.daozhang_amount,pf.shouxufei,
+		pf.estimate_amount,pfr1.sign as withdraw_sign,
+		pfr2.sign as daozhang_sign,pa.plat_no
+		FROM plat_funds pf 
+		LEFT JOIN plat_fx_rate pfr1 ON
+		pf.withdraw_currency = pfr1.currency 
+		LEFT JOIN plat_fx_rate pfr2 ON 
+		pf.daozhang_currency = pfr2.currency 
+		left join plat_account pa on 
+		pf.plat_account = pa.plat_account
+		<where>
+			<trim prefixOverrides="and">
+				<if test=" platNo != null and platNo != ''">
+					and pa.plat_no = #{platNo}
+				</if>
+				<if test=" baginCreatTime != null and endCreantTime != ''">
+					and pf.withdraw_time between #{baginCreatTime} and #{endCreantTime}
+				</if>
+				<if test=" platAccount != null and platAccount != ''">
+					and pf.plat_account = #{platAccount}
+				</if>
+				<if test=" withdrawCurrency != null and withdrawCurrency != ''">
+					and pf.withdraw_currency = #{withdrawCurrency}
+				</if>
+				<if test="inp != null and inp == 2">
+					and pf.daozhang_amount = 0.0
+				</if>
+				<if test="sid != null and sid != ''">
+					and pf.sid = #{sid}
+				</if>
+			</trim>
+		</where>
+		order by pf.creat_time DESC
+		<if test="pageNo != null and pageSize != null ">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="getCount" parameterType="Map" resultType="Integer">
+		select count(1) from plat_funds pf
+		<where>
+			<trim prefixOverrides="and">
+				<if test=" baginCreatTime != null and endCreantTime != ''">
+					and pf.withdraw_time between #{baginCreatTime} and #{endCreantTime}
+				</if>
+				<if test=" platAccount != null and platAccount != ''">
+					and pf.plat_account = #{platAccount}
+				</if>
+				<if test=" withdrawCurrency != null and withdrawCurrency != ''">
+					and pf.withdraw_currency = #{withdrawCurrency}
+				</if>
+				<if test="inp != null and inp == 2">
+					and pf.daozhang_amount = 0.0
+				</if>
+			</trim>
+		</where>
+	</select>
+	
+	<insert id="insert" parameterType="PlatFunds" useGeneratedKeys="true" keyProperty="sid">
+		insert into plat_funds 
+		( plat_account,creat_time,withdraw_time,withdraw_amount,withdraw_currency,
+		daozhang_time,daozhang_amount,daozhang_currency,shouxufei,estimate_amount)
+		values (#{platAccount},#{creatTime},#{withdrawTime},#{withdrawAmount},#{withdrawCurrency},
+		#{daozhangTime},#{daozhangAmount},#{daozhangCurrency},#{shouxufei},#{estimateAmount})
+	</insert>
+	
+	<update id="update" parameterType="PlatFunds">
+		update plat_funds set 
+		<trim suffixOverrides=",">
+			<if test=" withdrawTime != null ">withdraw_time = #{withdrawTime},</if>
+			<if test=" withdrawAmount != null ">withdraw_amount = #{withdrawAmount},</if>
+			<if test=" withdrawCurrency != null ">withdraw_currency = #{withdrawCurrency},</if>
+			<if test=" daozhangTime != null ">daozhang_time = #{daozhangTime},</if>
+			<if test=" daozhangAmount != null ">daozhang_amount = #{daozhangAmount},</if>
+			<if test=" daozhangCurrency != null ">daozhang_currency = #{daozhangCurrency},</if>
+			<if test=" shouxufei != null ">shouxufei = #{shouxufei},</if>
+			<if test=" estimateAmount != null">estimate_amount = #{estimateAmount},</if>
+		</trim>
+		where sid = #{sid}
+	</update>
+	
+	<delete id="deleteBatchById" parameterType="list">
+		<![CDATA[ 
+			delete from plat_funds where sid in 
+		 ]]>
+		 <foreach collection="list" item="item" open="(" separator="," close=")">
+		 	#{item}
+		 </foreach>
+	</delete>
+</mapper>

@@ -7,8 +7,8 @@ import java.util.Timer;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import com.xxfeii.baseside.common.utils.DateUtil;
 import com.xxfeii.baseside.modules.sys.task.TestTask;
-import com.xxfeii.baseside.modules.sys.utils.DateUtil;
 
 public class TaskListener implements ServletContextListener{
 

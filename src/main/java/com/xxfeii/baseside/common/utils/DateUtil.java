@@ -1,4 +1,4 @@
-package com.xxfeii.baseside.modules.sys.utils;
+package com.xxfeii.baseside.common.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,7 +28,12 @@ public class DateUtil {
 	/**
 	 * yyyy-MM-dd HH:mm:ss
 	 */
-	public static String formatPattern = "yyyy-MM-dd HH:mm:ss";
+	public static String formatPatternDateTime = "yyyy-MM-dd HH:mm:ss";
+	
+	/**
+	 * yyyy-MM-dd HH:mm:ss
+	 */
+	public static String formatPatternDate = "yyyy-MM-dd";
 	
 	/**
 	 * 获取当天的时间
@@ -77,6 +82,16 @@ public class DateUtil {
     } 
     
     /**
+     * 日期转换成字符串 
+     * @param date
+     * @return
+     */
+    public static String dateToString(Date date,String pattern){  
+        SimpleDateFormat format = getDateFormat(pattern);  
+        return format.format(date);  
+    } 
+    
+    /**
      * 字符串转换日期  
      * @param str
      * @param pattern
@@ -107,6 +122,19 @@ public class DateUtil {
     	return cal.getTime();
     }
     
+    /**
+     * 添加天数
+     * @param date
+     * @param day
+     * @return
+     */
+    public static Date addMonth(Date date,int count){
+    	Calendar calendar = Calendar.getInstance(); //得到日历
+    	calendar.setTime(date);//把当前时间赋给日历
+    	calendar.add(Calendar.MONTH, -3);  //设置为前3月
+    	return calendar.getTime();
+    }
+    
     
     /**
      * 获取一个时间格式
@@ -118,7 +146,7 @@ public class DateUtil {
     	if(StringUtils.isNotEmpty(pattern)){
     		format = new SimpleDateFormat(pattern);
     	}else{
-    		format = new SimpleDateFormat(formatPattern);
+    		format = new SimpleDateFormat(formatPatternDateTime);
     	}
     	return format;
     }
